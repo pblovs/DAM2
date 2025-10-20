@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class main01 {
 	
@@ -48,12 +49,44 @@ public class main01 {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void ListContents() {
+		System.out.println("--------------");
+		Path directory = Path.of(".");
+		try {
+			Stream<Path> flujo = Files.list(directory);
+			flujo.forEach(archivo-> System.out.println(archivo.getFileName()));
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void FileProperties() {
+		System.out.println("--------------");
+		Path rute = Path.of("planetas.txt");
+		System.out.println("Fichero existe: "+Files.exists(rute));
+		System.out.println("Fichero es  directorio: "+Files.isDirectory(rute));
+	}
+	
+	public static void DeleteFile() {
+		Path rute = Path.of("planetas.txt");
+			try {
+				Files.deleteIfExists(rute);
+			}
+			catch(IOException e) {
+				e.printStackTrace();
+			}
+	}
 
 	public static void main(String[] args) {
 		
 		ReadFiles();
 		WriteFiles();
 		Copy();
+		ListContents();
+		FileProperties();
+		//DeleteFile();
 	}
 
 }
