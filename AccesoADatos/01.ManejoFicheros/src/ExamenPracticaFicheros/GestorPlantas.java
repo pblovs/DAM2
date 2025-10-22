@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,16 +38,27 @@ public class GestorPlantas {
 			    Node nodo = listaPlantas.item(i);
 			    if (nodo.getNodeType() == Node.ELEMENT_NODE) {
 				    Element planta = (Element) nodo;
-				    String codigo = planta.getElementsByTagName("codigo").item(0).getTextContent();
+				    int codigo = Integer.parseInt(planta.getElementsByTagName("codigo").item(0).getTextContent());
 				    String nombre = planta.getElementsByTagName("nombre").item(0).getTextContent();
 				    String foto = planta.getElementsByTagName("foto").item(0).getTextContent();
 				    String descripcion = planta.getElementsByTagName("descripcion").item(0).getTextContent();
 				    
-				    try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("plantas.dat"))){ //plantas.dat tiene precio y cantidad
-			    	}
-			    	catch(IOException | ClassNotFoundException e) {
-			    		System.out.println("No se pudo leer el fichero, se creará una lista vacía.");
-			    	}
+				 // Precio y stock desde el archivo binario
+                    float precio = 0;
+                    int cantidad = 0;
+
+                    try (RandomAccessFile raf = new RandomAccessFile("plantas.dat", "r")) {
+                        long tamRegistro = 12; // int(4) + float(4) + int(4)
+                        long posicion = (codigo - 1) * tamRegistro;
+                        if (posicion < raf.length()) {
+                            raf.seek(posicion);
+                            int cod = raf.readInt();
+                            precio = raf.readFloat();
+                            cantidad = raf.readInt();
+                        }
+                    } catch (IOException ex) {
+                        System.out.println("Error leyendo plantas.dat: " + ex.getMessage());
+                    }
 				   
                     Planta plantita = new Planta(codigo, nombre, foto, descripcion, precio, cantidad);
                     plantas.add(plantita);
