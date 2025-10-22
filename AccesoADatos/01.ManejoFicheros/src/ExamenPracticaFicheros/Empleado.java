@@ -7,12 +7,14 @@ public class Empleado implements Serializable{
 	int id;
 	String nombre;
 	String cargo;
+	String password;
 	
-	public Empleado(int id, String nombre, String cargo) {
+	public Empleado(int id, String nombre, String cargo, String password) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.cargo = cargo;
+		this.password = password;
 	}
 
 	public int getId() {
@@ -39,10 +41,19 @@ public class Empleado implements Serializable{
 		this.cargo = cargo;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public String toString() {
-		return "Empleado [id=" + id + ", nombre=" + nombre + ", cargo=" + cargo + "]";
+		return "Empleado [id=" + id + ", nombre=" + nombre + ", cargo=" + cargo + ", password=" + password + "]";
 	}
+	
 	
 	
 }
