@@ -20,7 +20,7 @@ import XML.Fruta;
 
 public class GestorPlantas {
 	
-	public void cargarPlantas() {
+	public static void cargarPlantas() {
 		try {
 			
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance ( );
@@ -65,6 +65,10 @@ public class GestorPlantas {
 				   
 			    }
 		    }
+		    
+		    for (Planta p : plantas) {
+		    	System.out.println(p.toString());
+		    }
 
 		 }
 		 catch (Exception e)
@@ -72,4 +76,6 @@ public class GestorPlantas {
 			 e.printStackTrace();
 		 }
 	}
+	
+	
 }
