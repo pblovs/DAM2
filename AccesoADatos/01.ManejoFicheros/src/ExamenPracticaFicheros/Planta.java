@@ -70,8 +70,8 @@ public class Planta implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Planta [codigo=" + codigo + ", nombre=" + nombre + ", foto=" + foto + ", descripcion=" + descripcion
-				+ ", precio=" + precio + ", cantidad=" + cantidad + "]";
+		return String.format(" %-4d %-15s %-20s %-55s %10.2f %15d",
+	            codigo, nombre, foto, descripcion, precio, cantidad);
 	}
 	
 	
