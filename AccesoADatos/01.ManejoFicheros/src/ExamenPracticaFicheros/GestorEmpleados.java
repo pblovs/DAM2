@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class GestorEmpleados {
 	
-    private static final String FICHERO = "empleado.dat";
+    private static final String FICHERO = "empleados.dat";
     private static ArrayList<Empleado> empleados;
     
     static {
