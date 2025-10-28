@@ -29,9 +29,11 @@ public class Main {
 		System.out.println("\n\n| Iniciar sesión |\n");
 		int intentos = 3;
 		Boolean validacion = false;
+		int id = -1;
+		
 		do {
 			
-			int id = -1;
+			
 		    boolean idValido = false;
 
 		    while (!idValido) {
@@ -61,9 +63,16 @@ public class Main {
 		    }
 		    
 			for (Empleado e : GestorEmpleados.getEmpleados()) {
-				if (id == e.id && e.getPassword().contentEquals(pass)) {
+				if (id == e.getId() && e.getPassword().contentEquals(pass)) {
 					validacion = true;
 					System.out.println(VERDE+"Bienvenido "+e.getNombre()+"!!"+RESET);
+					
+					if(e.getCargo().contains("Gestor")) {
+						//Menu gestores
+					}
+					else if(e.getCargo().contains("Vendedor")) {
+						//Menu vendedores
+					}
 				}
 			}
 			if (!validacion) {
@@ -76,6 +85,7 @@ public class Main {
             System.out.println(ROJO+"\nHas agotado los intentos. Acceso denegado."+RESET);
             System.exit(0);
         }
+		
 		
 		sc.close();
 	}
