@@ -48,4 +48,9 @@ public class GestorEmpleados {
     		System.out.println(e.toString());
     	}
     }
+    
+    public static ArrayList<Empleado> getEmpleados() {
+        return empleados;
+    }
+
 }

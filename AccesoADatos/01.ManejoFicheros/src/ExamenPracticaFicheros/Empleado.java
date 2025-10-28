@@ -51,7 +51,7 @@ public class Empleado implements Serializable{
 
 	@Override
 	public String toString() {
-		return String.format(" %-20s %-20s %-15s", nombre, cargo, password);
+		return String.format(" %-8s %-22s %-16s %-15s", id, nombre, cargo, password);
 	}
 	
 	
