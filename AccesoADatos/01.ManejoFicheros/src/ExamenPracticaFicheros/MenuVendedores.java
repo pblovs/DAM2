@@ -1,5 +1,7 @@
 package ExamenPracticaFicheros;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MenuVendedores {
@@ -55,6 +57,39 @@ public class MenuVendedores {
     }
 	
 	private static void generarVenta(Empleado vendedor, Scanner sc) {
+		Ticket ticket = new Ticket(0, vendedor.getId(), vendedor.getNombre());
+        String opcion;
+        do {
+        	System.out.println("Introduce el ID de la planta a comprar: ");
+    		int id = sc.nextInt();
+    		System.out.println("Introduce la cantidad: ");
+    		int cant = sc.nextInt();
+    		sc.nextLine();
+    		
+    		Planta p = GestorPlantas.buscarPlantaPorId(id);
+    		if(p.getCantidad() < cant) {
+    			System.out.println("No hay stock suficiente. Stock: "+p.getCantidad());
+    			return;
+    		}
+    		ticket.agregarLinea(p, cant);
+            System.out.print("¿Desea agregar otra planta? (s/n): ");
+            opcion = sc.nextLine();
+        } while (opcion.equalsIgnoreCase("s"));
+        
+        System.out.println("\n RESUMEN DE COMPRA:");
+        System.out.println(ticket.toString());
+        for (LineaTicket l : ticket.getLineas()) {
+            System.out.println(l.toString());
+        }
+        System.out.printf("TOTAL = %.2f €\n", ticket.getTotal());
+
+        System.out.print("\n¿Confirmar compra? (s/n): ");
+        String confirmar = sc.nextLine();
+
+        if (!confirmar.equalsIgnoreCase("s")) {
+            System.out.println("❌ Venta cancelada");
+            return;
+        }
 		
 	}
 	

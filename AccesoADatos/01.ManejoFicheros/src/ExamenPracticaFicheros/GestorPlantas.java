@@ -82,5 +82,14 @@ public class GestorPlantas {
 	public static ArrayList<Planta> getPlantas() {
 	    return plantas;
 	}
+	
+	public static Planta buscarPlantaPorId(int idBuscar) {
+		for (Planta p : plantas) {
+			if (idBuscar == p.getCodigo()) {
+				return p;
+			}
+		}
+		return null;
+	}
 
 }
