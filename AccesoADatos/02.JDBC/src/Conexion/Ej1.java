@@ -77,10 +77,10 @@ public class Ej1 {
 			String consulta = "select Nombre from equipos";
 			ResultSet resultado = sentencia.executeQuery(consulta);
 			// 3.2) Crear un preparedStatement
-			String consulta2 = "Select * from jugadores where Nombre_equipo=?";
-			PreparedStatement sentencia2 = conexion.prepareStatement(consulta2);
 			System.out.println("Introduce el nombre del equipo: ");
 			String nombreEquipo = sc.nextLine();
+			String consulta2 = "Select * from jugadores where Nombre_equipo=?";
+			PreparedStatement sentencia2 = conexion.prepareStatement(consulta2);
 			sentencia2.setString(1, nombreEquipo);
 			ResultSet resultado2 = sentencia2.executeQuery();
 			

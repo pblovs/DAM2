@@ -71,7 +71,7 @@ public class Main {
 						//Menu gestores
 					}
 					else if(e.getCargo().contains("Vendedor")) {
-						//Menu vendedores
+						MenuVendedores.mostrar(e);
 					}
 				}
 			}

@@ -20,6 +20,9 @@ import XML.Fruta;
 
 public class GestorPlantas {
 	
+    private static ArrayList<Planta> plantas = new ArrayList<>();
+
+	
 	public static void cargarPlantas() {
 		try {
 			
@@ -32,7 +35,6 @@ public class GestorPlantas {
 		   
 		    NodeList listaPlantas = documento.getElementsByTagName("planta");
 		    
-		    ArrayList<Planta> plantas = new ArrayList<>();
 		   
 		    for (int i = 0; i < listaPlantas.getLength(); i++) {
 			    Node nodo = listaPlantas.item(i);
@@ -77,5 +79,8 @@ public class GestorPlantas {
 		 }
 	}
 	
-	
+	public static ArrayList<Planta> getPlantas() {
+	    return plantas;
+	}
+
 }
