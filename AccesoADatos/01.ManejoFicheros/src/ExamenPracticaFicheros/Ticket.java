@@ -24,7 +24,7 @@ public class Ticket implements Serializable{
 	
     public void agregarLinea(Planta p, int cantidad) {
         double subtotal = p.getPrecio() * cantidad;
-        lineas.add(new LineaTicket(p.getCodigo(), cantidad, p.getPrecio(), subtotal));
+        lineas.add(new LineaTicket(p.getCodigo(), p.getNombre(),cantidad, p.getPrecio(), subtotal));
         total += subtotal;
     }
 
@@ -83,9 +83,19 @@ public class Ticket implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Ticket [numeroTicket=" + numeroTicket + ", idEmpleado=" + idEmpleado + ", nombreEmpleado="
+		return numeroTicket + " Empleado " + idEmpleado + ", nombreEmpleado="
 				+ nombreEmpleado + "]";
 	}
     
+	public void imprimir() {
+		System.out.println("Ticket "+getNumeroTicket());
+		System.out.println("_____________________________________________");
+		
+        for (LineaTicket l : getLineas()) {
+            System.out.println(l.toString());
+        }
+        System.out.println("----------------------------------------------");
+        System.out.printf("TOTAL = %.2f €\n", getTotal());
+	}
     
 }

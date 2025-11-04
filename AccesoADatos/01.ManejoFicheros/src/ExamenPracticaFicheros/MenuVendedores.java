@@ -76,12 +76,8 @@ public class MenuVendedores {
             opcion = sc.nextLine();
         } while (opcion.equalsIgnoreCase("s"));
         
-        System.out.println("\n RESUMEN DE COMPRA:");
-        System.out.println(ticket.toString());
-        for (LineaTicket l : ticket.getLineas()) {
-            System.out.println(l.toString());
-        }
-        System.out.printf("TOTAL = %.2f €\n", ticket.getTotal());
+        System.out.println("\n RESUMEN DE COMPRA:\n");
+        ticket.imprimir();
 
         System.out.print("\n¿Confirmar compra? (s/n): ");
         String confirmar = sc.nextLine();
