@@ -61,7 +61,7 @@ public class LineaTicket implements Serializable{
 
 	@Override
 	public String toString() {
-	    return String.format(" %-4d, %-10s, %-8d, %.2f, %.2f",
+	    return String.format(" %-3d %-15s x %-4d %10.2f %10.2f",
 	            codigoPlanta, nombre, cantidad, precioUnitario, subtotal);
 	}
 
