@@ -2,8 +2,10 @@ package ExamenPracticaFicheros;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +80,21 @@ public class GestorPlantas {
 			 e.printStackTrace();
 		 }
 	}
+	
+	public static void guardar() {
+	    try (RandomAccessFile raf = new RandomAccessFile("plantas.dat", "rw")) {
+	        raf.setLength(0); 
+	        for (Planta p : plantas) {
+	            raf.writeInt(p.getCodigo());
+	            raf.writeFloat(p.getPrecio());
+	            raf.writeInt(p.getCantidad());
+	        }
+	    } catch (IOException e) {
+	        System.out.println("Error guardando plantas.dat: " + e.getMessage());
+	    }
+	}
+
+
 	
 	public static ArrayList<Planta> getPlantas() {
 	    return plantas;

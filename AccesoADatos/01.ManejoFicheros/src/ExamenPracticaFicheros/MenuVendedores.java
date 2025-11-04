@@ -87,9 +87,17 @@ public class MenuVendedores {
         String confirmar = sc.nextLine();
 
         if (!confirmar.equalsIgnoreCase("s")) {
-            System.out.println("❌ Venta cancelada");
+            System.out.println("Venta cancelada");
             return;
         }
+        else {
+        	for (LineaTicket l : ticket.getLineas()) {
+            	Planta p = GestorPlantas.buscarPlantaPorId(l.getCodigoPlanta());
+            	p.setCantidad(p.getCantidad()-l.getCantidad());
+            }
+        	GestorPlantas.guardar();
+        }
+        
 		
 	}
 	
