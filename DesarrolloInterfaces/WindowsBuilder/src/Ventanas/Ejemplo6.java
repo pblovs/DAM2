@@ -108,6 +108,7 @@ public class Ejemplo6 {
 		frame.getContentPane().add(btnNewButton_1);
 		
 		progressBar = new JProgressBar(0, 10);
+		progressBar.setStringPainted(true);
 		progressBar.setToolTipText("");
 		progressBar.setVisible(false);
 		progressBar.setForeground(new Color(0, 0, 128));
@@ -133,6 +134,7 @@ public class Ejemplo6 {
 				j++;
 				progressBar.setValue(j);
 				lblNewLabel.setText(String.valueOf(i));
+				progressBar.setString(j+"0%");
 				lblNewLabel_2.setText(String.valueOf(j)+"0%");
 				if (i == 0) {
 					tiempo.stop();
