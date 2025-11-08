@@ -1,0 +1,12 @@
+Número Ticket: 1
+--------------------------------------------------
+Empleado que ha atendido: 3249
+Nombre del empleado: Juan Pérez
+Fecha: 08/11/2025
+
+CodigoProducto  Nombre             Cantidad   PrecioUnitario   Subtotal
+--------------------------------------------------
+17              Crisantemo      2          176,76          353,52    
+16              Poto            1          341,39          341,39    
+--------------------------------------------------
+TOTAL: 694,91 €

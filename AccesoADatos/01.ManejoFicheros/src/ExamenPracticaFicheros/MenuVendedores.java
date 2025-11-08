@@ -67,7 +67,8 @@ public class MenuVendedores {
     }
 	
 	private static void generarVenta(Empleado vendedor, Scanner sc) {
-		Ticket ticket = new Ticket(0, vendedor.getId(), vendedor.getNombre());
+		int numTicket = GestorTicket.obtenerSiguienteNumeroTicket();
+		Ticket ticket = new Ticket(numTicket, vendedor.getId(), vendedor.getNombre());
         String opcion;
         
         do {
@@ -135,6 +136,7 @@ public class MenuVendedores {
             	p.setCantidad(p.getCantidad()-l.getCantidad());
             }
         	GestorPlantas.guardar();
+        	GestorTicket.guardarTicket(ticket);
         }
         
 		

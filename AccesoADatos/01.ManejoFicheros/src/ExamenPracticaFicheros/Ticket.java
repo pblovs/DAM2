@@ -30,29 +30,6 @@ public class Ticket implements Serializable{
         total += subtotal;
     }
     
-    private static int obtenerNuevoId() {
-        int id = 1;
-        String file = "ticket_id.dat";
-        
-        // Leer último id
-        try (RandomAccessFile raf = new RandomAccessFile(file, "r")) {
-            if (raf.length() > 0) {
-                id = raf.readInt() + 1;
-            }
-        } catch (IOException e) {
-            // primera vez: archivo no existe
-        }
-
-        // Guardar nuevo id
-        try (RandomAccessFile raf = new RandomAccessFile(file, "rw")) {
-            raf.setLength(0);
-            raf.writeInt(id);
-        } catch (IOException e) {
-            System.out.println("Error guardando ticket_id.dat: " + e.getMessage());
-        }
-
-        return id;
-    }
 
     public void marcarComoDevolucion() {
         this.esDevolucion = true;
