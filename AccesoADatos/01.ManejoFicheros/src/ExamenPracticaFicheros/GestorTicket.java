@@ -73,33 +73,21 @@ public class GestorTicket {
         }
     }
 
-    public static void devolverTicket(int numeroTicket) {
-        File original = new File(TICKETS_DIR + "/" + numeroTicket + ".txt");
-        File devolucionesDir = new File(DEVOLUCIONES_DIR);
-        if (!devolucionesDir.exists()) devolucionesDir.mkdirs();
+    public static void devolverTicket(Ticket ticket) {
+        // Marcar el ticket como devolución
+        ticket.marcarComoDevolucion();
 
-        File devuelto = new File(devolucionesDir, numeroTicket + ".txt");
+        // Guardar el ticket en la carpeta DEVOLUCIONES
+        guardarTicket(ticket);
 
-        if (!original.exists()) {
-            System.out.println("El ticket " + numeroTicket + " no existe.");
-            return;
-        }
+        // Borrar el original de TICKETS
+        File original = new File(TICKETS_DIR + "/" + ticket.getNumeroTicket() + ".txt");
+        if (original.exists()) original.delete();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(original)); //Lee el original y escribe en el devuelto
-             PrintWriter pw = new PrintWriter(new FileWriter(devuelto))) {
+        // Actualizar el stock
+        GestorPlantas.actualizarStockPorDevolucion(ticket);
 
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                pw.println(linea);
-            }
-            pw.println();
-            pw.println("=== DEVUELTO ===");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        original.delete();
-        System.out.println("Ticket " + numeroTicket + " devuelto");
+        System.out.println("Ticket " + ticket.getNumeroTicket() + " devuelto y stock actualizado.");
     }
+
 }

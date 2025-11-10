@@ -14,6 +14,8 @@ public class MenuVendedores {
     public static final String MAGENTA = "\u001B[35m";
     public static final String CYAN = "\u001B[36m";
     
+    private static final List<Ticket> tickets = new ArrayList<>();
+    
 	public static void mostrar(Empleado vendedor) {
 		Scanner sc = new Scanner(System.in);
         int opcion;
@@ -36,10 +38,24 @@ public class MenuVendedores {
                     generarVenta(vendedor, sc);
                     break;
                 case 3:
-                	System.out.println("Introduce el número del ticket a devolver: ");
-                	int numTicket = sc.nextInt();
-                	GestorTicket.devolverTicket(numTicket);
-                    break;
+                	 System.out.print("Introduce el número del ticket a devolver: ");
+                	    int numTicket = sc.nextInt();
+                	    sc.nextLine();
+
+                	    Ticket ticketDevuelto = null;
+                	    for (Ticket t : tickets) {
+                	        if (t.getNumeroTicket() == numTicket) {
+                	            ticketDevuelto = t;
+                	            break;
+                	        }
+                	    }
+
+                	    if (ticketDevuelto != null) {
+                	        GestorTicket.devolverTicket(ticketDevuelto);
+                	    } else {
+                	        System.out.println(ROJO + "Ticket no encontrado en memoria." + RESET);
+                	    }
+                	    break;
                 default:
                     System.out.println(ROJO + "Saliendo..." + RESET);
             }
@@ -140,6 +156,7 @@ public class MenuVendedores {
             }
         	GestorPlantas.guardar();
         	GestorTicket.guardarTicket(ticket);
+        	tickets.add(ticket);
         }
         
         

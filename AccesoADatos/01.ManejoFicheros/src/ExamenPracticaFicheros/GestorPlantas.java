@@ -108,5 +108,16 @@ public class GestorPlantas {
 		}
 		return null;
 	}
+	
+	public static void actualizarStockPorDevolucion(Ticket ticket) {
+	    for (LineaTicket linea : ticket.getLineas()) {
+	        Planta planta = buscarPlantaPorId(linea.getCodigoPlanta());
+	        if (planta != null) {
+	            planta.setCantidad(planta.getCantidad() + linea.getCantidad());
+	        }
+	    }
+	    guardar(); 
+	}
+
 
 }
