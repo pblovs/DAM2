@@ -32,10 +32,13 @@ public class MenuVendedores {
                     mostrarCatalogo(vendedor, sc);
                     break;
                 case 2:
+    		        sc.nextLine();
                     generarVenta(vendedor, sc);
                     break;
                 case 3:
-                    System.out.println(VERDE + "Devolver" + RESET);
+                	System.out.println("Introduce el número del ticket a devolver: ");
+                	int numTicket = sc.nextInt();
+                	GestorTicket.devolverTicket(numTicket);
                     break;
                 default:
                     System.out.println(ROJO + "Saliendo..." + RESET);
@@ -138,6 +141,7 @@ public class MenuVendedores {
         	GestorPlantas.guardar();
         	GestorTicket.guardarTicket(ticket);
         }
+        
         
 		
 	}

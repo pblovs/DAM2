@@ -90,14 +90,17 @@ public class Ticket implements Serializable{
 	}
     
 	public void imprimir() {
-		System.out.println("Ticket "+getNumeroTicket()+"          Atendido por: "+getNombreEmpleado()+" ("+getIdEmpleado()+")");
-		System.out.println("_________________________________________________\n");
+		System.out.println(" Ticket "+getNumeroTicket()+"          Atendido por: "+getNombreEmpleado()+" ("+getIdEmpleado()+")");
+		System.out.println("__________________________________________________\n");
+		System.out.printf(" %-3s %-15s %-4s %10s %12s", "nº", "Nombre","Cant.","P/Ud.","Subtotal");
+        System.out.println("\n---------------------------------------------------");
+
 		
         for (LineaTicket l : getLineas()) {
             System.out.println(l.toString());
         }
-        System.out.println("-------------------------------------------------");
-        System.out.printf("TOTAL = %.2f €\n", getTotal());
+        System.out.println("---------------------------------------------------");
+        System.out.printf(" TOTAL = %.2f €\n", getTotal());
 	}
     
 }
