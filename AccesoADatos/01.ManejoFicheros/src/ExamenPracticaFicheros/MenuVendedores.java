@@ -154,7 +154,7 @@ public class MenuVendedores {
             	Planta p = GestorPlantas.buscarPlantaPorId(l.getCodigoPlanta());
             	p.setCantidad(p.getCantidad()-l.getCantidad());
             }
-        	GestorPlantas.guardar();
+        	GestorPlantas.guardar("plantas.dat", GestorPlantas.getPlantas());
         	GestorTicket.guardarTicket(ticket);
         	tickets.add(ticket);
         }

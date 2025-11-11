@@ -5,119 +5,167 @@
         <nombre>Cactus</nombre>
         <foto>cactus.jpg</foto>
         <descripcion>Planta suculenta del desierto.</descripcion>
+        <precio>240.93</precio>
+        <cantidad>21</cantidad>
     </planta>
     <planta>
         <codigo>2</codigo>
         <nombre>Geranio</nombre>
         <foto>geranio.jpg</foto>
         <descripcion>Flor común de jardín con colores vivos.</descripcion>
+        <precio>163.83</precio>
+        <cantidad>100</cantidad>
     </planta>
     <planta>
         <codigo>3</codigo>
         <nombre>Helecho</nombre>
         <foto>helecho.jpg</foto>
         <descripcion>Planta de sombra con hojas verdes largas.</descripcion>
+        <precio>92.06</precio>
+        <cantidad>180</cantidad>
     </planta>
     <planta>
         <codigo>4</codigo>
         <nombre>Rosa</nombre>
         <foto>rosa.jpg</foto>
         <descripcion>Flor ornamental con espinas.</descripcion>
+        <precio>166.92</precio>
+        <cantidad>465</cantidad>
     </planta>
     <planta>
         <codigo>5</codigo>
         <nombre>Lavanda</nombre>
         <foto>lavanda.jpg</foto>
         <descripcion>Planta aromática de color violeta.</descripcion>
+        <precio>106.08</precio>
+        <cantidad>284</cantidad>
     </planta>
     <planta>
         <codigo>6</codigo>
         <nombre>Aloe Vera</nombre>
         <foto>aloe_vera.jpg</foto>
         <descripcion>Planta medicinal con hojas carnosas.</descripcion>
+        <precio>413.53</precio>
+        <cantidad>92</cantidad>
     </planta>
     <planta>
         <codigo>7</codigo>
         <nombre>Menta</nombre>
         <foto>menta.jpg</foto>
         <descripcion>Planta aromática usada en infusiones.</descripcion>
+        <precio>76.71</precio>
+        <cantidad>320</cantidad>
     </planta>
     <planta>
         <codigo>8</codigo>
         <nombre>Bambú</nombre>
         <foto>bambu.jpg</foto>
         <descripcion>Planta de tallo alto y hueco, de rápido crecimiento.</descripcion>
+        <precio>261.71</precio>
+        <cantidad>434</cantidad>
     </planta>
     <planta>
         <codigo>9</codigo>
         <nombre>Orquídea</nombre>
         <foto>orquidea.jpg</foto>
         <descripcion>Flor exótica de gran valor ornamental.</descripcion>
+        <precio>308.11</precio>
+        <cantidad>295</cantidad>
     </planta>
     <planta>
         <codigo>10</codigo>
         <nombre>Hortensia</nombre>
         <foto>hortensia.jpg</foto>
         <descripcion>Planta de flores grandes y coloridas.</descripcion>
+        <precio>394.66</precio>
+        <cantidad>218</cantidad>
     </planta>
     <planta>
         <codigo>11</codigo>
         <nombre>Palmera</nombre>
         <foto>palmera.jpg</foto>
         <descripcion>Árbol tropical con hojas largas en forma de abanico.</descripcion>
+        <precio>161.66</precio>
+        <cantidad>34</cantidad>
     </planta>
     <planta>
         <codigo>12</codigo>
         <nombre>Clavel</nombre>
         <foto>clavel.jpg</foto>
         <descripcion>Flor de colores vivos y aroma agradable.</descripcion>
+        <precio>205.04</precio>
+        <cantidad>339</cantidad>
     </planta>
     <planta>
         <codigo>13</codigo>
         <nombre>Jacinto</nombre>
         <foto>jacinto.jpg</foto>
         <descripcion>Planta bulbosa de flores perfumadas.</descripcion>
+        <precio>340.11</precio>
+        <cantidad>468</cantidad>
     </planta>
     <planta>
         <codigo>14</codigo>
         <nombre>Petunia</nombre>
         <foto>petunia.jpg</foto>
         <descripcion>Flor de jardín muy colorida.</descripcion>
+        <precio>168.15</precio>
+        <cantidad>50</cantidad>
     </planta>
     <planta>
         <codigo>15</codigo>
         <nombre>Begonia</nombre>
         <foto>begonia.jpg</foto>
         <descripcion>Planta ornamental con hojas decorativas.</descripcion>
+        <precio>454.43</precio>
+        <cantidad>1</cantidad>
     </planta>
     <planta>
         <codigo>16</codigo>
         <nombre>Poto</nombre>
         <foto>poto.jpg</foto>
         <descripcion>Planta colgante de interior muy resistente.</descripcion>
+        <precio>341.39</precio>
+        <cantidad>316</cantidad>
     </planta>
     <planta>
         <codigo>17</codigo>
         <nombre>Crisantemo</nombre>
         <foto>crisantemo.jpg</foto>
         <descripcion>Flor típica de otoño en muchos colores.</descripcion>
+        <precio>176.76</precio>
+        <cantidad>432</cantidad>
     </planta>
     <planta>
         <codigo>18</codigo>
         <nombre>Romero</nombre>
         <foto>romero.jpg</foto>
         <descripcion>Planta aromática usada en la cocina mediterránea.</descripcion>
+        <precio>331.79</precio>
+        <cantidad>82</cantidad>
     </planta>
     <planta>
         <codigo>19</codigo>
         <nombre>Ficus</nombre>
         <foto>ficus.jpg</foto>
         <descripcion>Árbol o arbusto de interior muy popular.</descripcion>
+        <precio>432.16</precio>
+        <cantidad>404</cantidad>
     </planta>
     <planta>
         <codigo>20</codigo>
         <nombre>Jazmín</nombre>
         <foto>jazmin.jpg</foto>
         <descripcion>Planta trepadora de flores fragantes.</descripcion>
+        <precio>400.61</precio>
+        <cantidad>137</cantidad>
+    </planta>
+    <planta>
+        <codigo>21</codigo>
+        <nombre>Girasol</nombre>
+        <foto>Girasol.jpg</foto>
+        <descripcion>La planta que está cara al sol.</descripcion>
+        <precio>0.0</precio>
+        <cantidad>0</cantidad>
     </planta>
 </plantas>

@@ -23,15 +23,22 @@ import XML.Fruta;
 public class GestorPlantas {
 	
     private static ArrayList<Planta> plantas = new ArrayList<>();
+    private static ArrayList<Planta> plantasBaja = new ArrayList<>();
 
 	
 	public static void cargarPlantas() {
+		
+		File carpeta = new File("PLANTAS");
+	    if (!carpeta.exists()) {
+	        carpeta.mkdir(); 
+	    }
+	    
 		try {
 			
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance ( );
 			Document documento = null;
 		    DocumentBuilder builder = factory.newDocumentBuilder();
-		    documento = builder.parse( new File("plantas.xml") );
+		    documento = builder.parse( new File("PLANTAS/plantas.xml") );
 		   
 		    documento.getDocumentElement().normalize();
 		   
@@ -51,7 +58,7 @@ public class GestorPlantas {
                     float precio = 0;
                     int cantidad = 0;
 
-                    try (RandomAccessFile raf = new RandomAccessFile("plantas.dat", "r")) {
+                    try (RandomAccessFile raf = new RandomAccessFile("PLANTAS/plantas.dat", "r")) {
                         long tamRegistro = 12; // int(4) + float(4) + int(4)
                         long posicion = (codigo - 1) * tamRegistro;
                         if (posicion < raf.length()) {
@@ -81,16 +88,56 @@ public class GestorPlantas {
 		 }
 	}
 	
-	public static void guardar() {
-	    try (RandomAccessFile raf = new RandomAccessFile("plantas.dat", "rw")) {
-	        raf.setLength(0); 
-	        for (Planta p : plantas) {
-	            raf.writeInt(p.getCodigo());
-	            raf.writeFloat(p.getPrecio());
-	            raf.writeInt(p.getCantidad());
+	public static void guardar(String dat, ArrayList<Planta> lista) {
+	    try {
+	        File carpeta = new File("PLANTAS");
+	        if (!carpeta.exists()) {
+	            carpeta.mkdir();
+	        }
+	        File archivo = new File(carpeta, dat);
+	        try (RandomAccessFile raf = new RandomAccessFile(archivo, "rw")) {
+	            raf.setLength(0); 
+	            for (Planta p : lista) {
+	                raf.writeInt(p.getCodigo());
+	                raf.writeFloat(p.getPrecio());
+	                raf.writeInt(p.getCantidad());
+	            }
 	        }
 	    } catch (IOException e) {
-	        System.out.println("Error guardando plantas.dat: " + e.getMessage());
+	        System.out.println("Error guardando " + dat + ": " + e.getMessage());
+	    }
+	}
+
+	public static void guardarXML(String xml, ArrayList<Planta> lista) {
+	    try {
+	    	File carpeta = new File("PLANTAS");
+	        if (!carpeta.exists()) {
+	            carpeta.mkdir();
+	        }
+	        File archivo = new File(carpeta,xml);
+	        StringBuilder sb = new StringBuilder();
+	        sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+	        sb.append("<plantas>\n");
+
+	        for (Planta p : lista) {
+	            sb.append("    <planta>\n");
+	            sb.append("        <codigo>").append(p.getCodigo()).append("</codigo>\n");
+	            sb.append("        <nombre>").append(p.getNombre()).append("</nombre>\n");
+	            sb.append("        <foto>").append(p.getFoto()).append("</foto>\n");
+	            sb.append("        <descripcion>").append(p.getDescripcion()).append("</descripcion>\n");
+	            sb.append("        <precio>").append(p.getPrecio()).append("</precio>\n");
+	            sb.append("        <cantidad>").append(p.getCantidad()).append("</cantidad>\n");
+	            sb.append("    </planta>\n");
+	        }
+
+	        sb.append("</plantas>");
+
+	        try (FileOutputStream fos = new FileOutputStream(archivo)) {
+	            fos.write(sb.toString().getBytes());
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
 	    }
 	}
 
@@ -98,6 +145,10 @@ public class GestorPlantas {
 	
 	public static ArrayList<Planta> getPlantas() {
 	    return plantas;
+	}
+	
+	public static ArrayList<Planta> getPlantasBaja() {
+	    return plantasBaja;
 	}
 	
 	public static Planta buscarPlantaPorId(int idBuscar) {
@@ -116,7 +167,7 @@ public class GestorPlantas {
 	            planta.setCantidad(planta.getCantidad() + linea.getCantidad());
 	        }
 	    }
-	    guardar(); 
+	    guardar("plantas.dat", plantas); 
 	}
 
 

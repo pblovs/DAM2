@@ -32,8 +32,10 @@ public class MenuGestores {
 
             switch (opcion) {
                 case 1:
+                	altaPlanta(sc);
                     break;
                 case 2:
+                	bajaPlanta(sc);
                     break;
                 case 3:
                 	
@@ -56,16 +58,42 @@ public class MenuGestores {
 	}
 	
 	public static void altaPlanta(Scanner sc) {
-		String nombre;
-		String foto;
-		String desc;
-		float precio;
-		int cant;
-		
-		System.out.println("Introduce el nombre: ");
-		nombre = sc.nextLine();
-		foto = nombre +".jpg";
-		
-		
+	    sc.nextLine();
+	    System.out.println(VERDE + "\n=== Alta de nueva planta ===" + RESET);
+	    System.out.print("Nombre: ");
+	    String nombre = sc.nextLine();
+
+	    System.out.print("Descripción: ");
+	    String desc = sc.nextLine();
+
+	    System.out.print("Precio: ");
+	    float precio = sc.nextFloat();
+
+	    System.out.print("Stock inicial: ");
+	    int stock = sc.nextInt();
+	    sc.nextLine();
+
+	    int codigo = GestorPlantas.getPlantas().size() + 1;
+	    Planta nueva = new Planta(codigo, nombre, nombre + ".jpg", desc, precio, stock);
+	    GestorPlantas.getPlantas().add(nueva);
+	    GestorPlantas.guardar("plantas.dat", GestorPlantas.getPlantas());
+	    GestorPlantas.guardarXML("plantas.xml", GestorPlantas.getPlantas());
+
+	    System.out.println(VERDE + "Planta añadida correctamente." + RESET);
 	}
+	
+	public static void bajaPlanta(Scanner sc) {
+		System.out.println("Introduce el id de la planta: ");
+		int id = sc.nextInt();
+		Planta p = GestorPlantas.buscarPlantaPorId(id);
+		GestorPlantas.getPlantasBaja().add(p);
+		p.setPrecio(0);
+		p.setCantidad(0);
+		GestorPlantas.guardar("plantas.dat", GestorPlantas.getPlantas());              
+		GestorPlantas.guardarXML("plantas.xml", GestorPlantas.getPlantas());          
+		GestorPlantas.guardar("plantasBaja.dat", GestorPlantas.getPlantasBaja());  
+		GestorPlantas.guardarXML("plantasBaja.xml", GestorPlantas.getPlantasBaja());
+
+	}
+
 }
