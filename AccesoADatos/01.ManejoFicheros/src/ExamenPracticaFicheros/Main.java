@@ -68,7 +68,7 @@ public class Main {
 					System.out.println(VERDE+"Bienvenido "+e.getNombre()+"!!"+RESET);
 					
 					if(e.getCargo().contains("Gestor")) {
-						//Menu gestores
+						MenuGestores.mostrar(e);
 					}
 					else if(e.getCargo().contains("Vendedor")) {
 						MenuVendedores.mostrar(e);
