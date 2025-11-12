@@ -2,18 +2,25 @@ package ExamenPracticaFicheros;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GestorTicket {
 	private static final String TICKETS_DIR = "TICKETS";
     private static final String DEVOLUCIONES_DIR = "DEVOLUCIONES";
     
-    public static void devolverTicketArchivo(int numTicket) {
+    private static ArrayList<Ticket> tickets = new ArrayList<>();
+
+    
+    /*public static void devolverTicketArchivo(int numTicket) {
        
 
         File ticket = new File(TICKETS_DIR, numTicket + ".txt");
@@ -25,9 +32,15 @@ public class GestorTicket {
         File destino = new File(DEVOLUCIONES_DIR, numTicket + ".txt");
         
         
+    }*/
+    
+    /*static {
+        tickets = cargarTickets();
     }
 
-    
+    private static ArrayList<Ticket> cargarTickets() {
+        
+    }*/
 
     public static int obtenerSiguienteNumeroTicket() {
         File dir = new File(TICKETS_DIR);
@@ -98,6 +111,10 @@ public class GestorTicket {
         GestorPlantas.actualizarStockPorDevolucion(ticket);
 
         System.out.println("Ticket " + ticket.getNumeroTicket() + " devuelto y stock actualizado.");
+    }
+    
+    public static ArrayList<Ticket> getTickets() {
+        return tickets;
     }
 
 }

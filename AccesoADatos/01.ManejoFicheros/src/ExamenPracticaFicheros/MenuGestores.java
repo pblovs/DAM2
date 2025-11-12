@@ -1,5 +1,6 @@
 package ExamenPracticaFicheros;
 
+import java.io.File;
 import java.util.Scanner;
 
 public class MenuGestores {
@@ -19,8 +20,8 @@ public class MenuGestores {
             System.out.println(AMARILLO + "\n===== MENÚ GESTOR =====" + RESET);
             System.out.println(CYAN + "1. Dar de alta planta" + RESET);
             System.out.println(CYAN + "2. Dar de baja planta" + RESET);
-            System.out.println(CYAN + "3. Dar de alta empleado" + RESET);
-            System.out.println(CYAN + "4. Modificar planta" + RESET);
+            System.out.println(CYAN + "3. Modificar planta" + RESET);
+            System.out.println(CYAN + "4. Dar de alta empleado" + RESET);
             System.out.println(CYAN + "5. Dar de baja empleado" + RESET);
             System.out.println(CYAN + "6. Recuperar empleado" + RESET);
             System.out.println(CYAN + "7. Estadísticas" + RESET);
@@ -38,13 +39,16 @@ public class MenuGestores {
                 	bajaPlanta(sc);
                     break;
                 case 3:
-                	
+                	modificarPlanta(sc);
                 	break;
                 case 4:
+                	altaEmpleado(sc);
                 	break;
                 case 5:
+                	bajaEmpleado(sc);
                 	break;
                 case 6:
+                	recuperarEmpleado(sc);
                 	break;
                 case 7:
                 	break;
@@ -95,5 +99,115 @@ public class MenuGestores {
 		GestorPlantas.guardarXML("plantasBaja.xml", GestorPlantas.getPlantasBaja());
 
 	}
+	
+	public static void modificarPlanta(Scanner sc) {
+        System.out.print("Introduce el ID de la planta a modificar: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        Planta p = GestorPlantas.buscarPlantaPorId(id);
+        if (p == null) {
+            System.out.println(ROJO + "Planta no encontrada." + RESET);
+            return;
+        }
+
+        System.out.println("Modificando planta: " + p.getNombre());
+        System.out.print("Nuevo nombre (" + p.getNombre() + "): ");
+        String nombre = sc.nextLine();
+        if (!nombre.isEmpty()) p.setNombre(nombre);
+
+        System.out.print("Nueva descripción (" + p.getDescripcion() + "): ");
+        String desc = sc.nextLine();
+        if (!desc.isEmpty()) p.setDescripcion(desc);
+
+        System.out.print("Nuevo precio (" + p.getPrecio() + "): ");
+        String precioStr = sc.nextLine();
+        if (!precioStr.isEmpty()) p.setPrecio(Float.parseFloat(precioStr));
+
+        System.out.print("Nuevo stock (" + p.getCantidad() + "): ");
+        String stockStr = sc.nextLine();
+        if (!stockStr.isEmpty()) p.setCantidad(Integer.parseInt(stockStr));
+
+        GestorPlantas.guardar("plantas.dat", GestorPlantas.getPlantas());
+        GestorPlantas.guardarXML("plantas.xml", GestorPlantas.getPlantas());
+        System.out.println(VERDE + "Planta modificada correctamente." + RESET);
+    }
+	
+	public static void altaEmpleado(Scanner sc) {
+        sc.nextLine();
+        System.out.println(VERDE + "\n=== Alta de nuevo empleado ===" + RESET);
+        System.out.print("Nombre: ");
+        String nombre = sc.nextLine();
+
+        String contrasena;
+        do {
+            System.out.print("Contraseña (5-7 caracteres): ");
+            contrasena = sc.nextLine();
+        } while (contrasena.length() < 5 || contrasena.length() > 7);
+
+        String cargo;
+        do {
+            System.out.print("Cargo (gestor/vendedor): ");
+            cargo = sc.nextLine().toLowerCase();
+        } while (!cargo.equals("gestor") && !cargo.equals("vendedor"));
+
+        int id = (int) (1000 + Math.random() * 9000);
+        Empleado nuevo = new Empleado(id, nombre, cargo, contrasena);
+        GestorEmpleados.getEmpleados().add(nuevo);
+        
+        File empleadosDir = new File("EMPLEADOS");
+        if (!empleadosDir.exists()) empleadosDir.mkdirs();
+        GestorEmpleados.guardar("EMPLEADOS/empleados.dat", GestorEmpleados.getEmpleados());
+
+        System.out.println(VERDE + "Empleado añadido correctamente con ID: " + id + RESET);
+    }
+	
+	public static void bajaEmpleado(Scanner sc) {
+        System.out.print("Introduce el ID del empleado: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        Empleado e = GestorEmpleados.buscarPorId(id);
+        if (e == null) {
+            System.out.println(ROJO + "No existe ese empleado." + RESET);
+            return;
+        }
+
+        GestorEmpleados.getEmpleados().remove(e);
+        GestorEmpleados.getEmpleadosBaja().add(e);
+        
+        File empleadosDir = new File("EMPLEADOS");
+        if (!empleadosDir.exists()) empleadosDir.mkdirs();
+        
+        File bajaDir = new File("EMPLEADOS/BAJA");
+        if (!bajaDir.exists()) bajaDir.mkdirs();
+        
+        GestorEmpleados.guardar("EMPLEADOS/empleados.dat", GestorEmpleados.getEmpleados());
+        GestorEmpleados.guardar("EMPLEADOS/BAJA/empleadosBaja.dat", GestorEmpleados.getEmpleadosBaja());
+        System.out.println(VERDE + "Empleado dado de baja correctamente." + RESET);
+    }
+	
+	public static void recuperarEmpleado(Scanner sc) {
+        System.out.print("Introduce el ID del empleado a recuperar: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        Empleado e = GestorEmpleados.buscarPorIdBaja(id);
+        if (e == null) {
+            System.out.println(ROJO + "No se encontró ese empleado en BAJA." + RESET);
+            return;
+        }
+
+        GestorEmpleados.getEmpleadosBaja().remove(e);
+        GestorEmpleados.getEmpleados().add(e);
+        File empleadosDir = new File("EMPLEADOS");
+        if (!empleadosDir.exists()) empleadosDir.mkdirs();
+        
+        File bajaDir = new File("EMPLEADOS/BAJA");
+        if (!bajaDir.exists()) bajaDir.mkdirs();
+        GestorEmpleados.guardar("EMPLEADOS/empleados.dat", GestorEmpleados.getEmpleados());
+        GestorEmpleados.guardar("EMPLEADOS/BAJA/empleadosBaja.dat", GestorEmpleados.getEmpleadosBaja());
+        System.out.println(VERDE + "Empleado recuperado correctamente." + RESET);
+    }
 
 }

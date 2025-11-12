@@ -14,8 +14,8 @@ public class MenuVendedores {
     public static final String MAGENTA = "\u001B[35m";
     public static final String CYAN = "\u001B[36m";
     
-    private static final List<Ticket> tickets = new ArrayList<>();
-    
+    private static ArrayList<Ticket> tickets = new ArrayList<>();
+        
 	public static void mostrar(Empleado vendedor) {
 		Scanner sc = new Scanner(System.in);
         int opcion;

@@ -2,11 +2,11 @@
 <plantas>
     <planta>
         <codigo>1</codigo>
-        <nombre>Cactus</nombre>
+        <nombre>Cactus Nv.2</nombre>
         <foto>cactus.jpg</foto>
-        <descripcion>Planta suculenta del desierto.</descripcion>
-        <precio>240.93</precio>
-        <cantidad>21</cantidad>
+        <descripcion>Te pincha.</descripcion>
+        <precio>340.95</precio>
+        <cantidad>130</cantidad>
     </planta>
     <planta>
         <codigo>2</codigo>
@@ -94,7 +94,7 @@
         <foto>clavel.jpg</foto>
         <descripcion>Flor de colores vivos y aroma agradable.</descripcion>
         <precio>205.04</precio>
-        <cantidad>339</cantidad>
+        <cantidad>336</cantidad>
     </planta>
     <planta>
         <codigo>13</codigo>
@@ -110,7 +110,7 @@
         <foto>petunia.jpg</foto>
         <descripcion>Flor de jardín muy colorida.</descripcion>
         <precio>168.15</precio>
-        <cantidad>50</cantidad>
+        <cantidad>49</cantidad>
     </planta>
     <planta>
         <codigo>15</codigo>
@@ -150,7 +150,7 @@
         <foto>ficus.jpg</foto>
         <descripcion>Árbol o arbusto de interior muy popular.</descripcion>
         <precio>432.16</precio>
-        <cantidad>404</cantidad>
+        <cantidad>402</cantidad>
     </planta>
     <planta>
         <codigo>20</codigo>
@@ -158,7 +158,7 @@
         <foto>jazmin.jpg</foto>
         <descripcion>Planta trepadora de flores fragantes.</descripcion>
         <precio>400.61</precio>
-        <cantidad>137</cantidad>
+        <cantidad>134</cantidad>
     </planta>
     <planta>
         <codigo>21</codigo>
@@ -167,5 +167,13 @@
         <descripcion>La planta que está cara al sol.</descripcion>
         <precio>0.0</precio>
         <cantidad>0</cantidad>
+    </planta>
+    <planta>
+        <codigo>22</codigo>
+        <nombre>Florín</nombre>
+        <foto>Florín.jpg</foto>
+        <descripcion>Flor giratoria.</descripcion>
+        <precio>1.0</precio>
+        <cantidad>200</cantidad>
     </planta>
 </plantas>
