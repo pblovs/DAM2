@@ -114,7 +114,7 @@ public class GestorPlantas {
 	        if (!carpeta.exists()) {
 	            carpeta.mkdir();
 	        }
-	        File archivo = new File(carpeta,xml);
+	        File archivo = new File(carpeta, xml);
 	        StringBuilder sb = new StringBuilder();
 	        sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 	        sb.append("<plantas>\n");

@@ -1,10 +1,9 @@
- Ticket 1          Atendido por: Juan Pérez (3249)
+ Ticket 4          Atendido por: Juan Pérez (3249)
 __________________________________________________
 
  nº  Nombre          Cant.      P/Ud.     Subtotal
 ---------------------------------------------------
- 17  Crisantemo      x 2        176,76     353,52
+ 12  Clavel          x 3        205,04     615,12
+ 14  Petunia         x 1        168,15     168,15
 ---------------------------------------------------
- TOTAL = -353,52 €
-
-=== DEVOLUCIÓN ===
+ TOTAL = 783,27 €

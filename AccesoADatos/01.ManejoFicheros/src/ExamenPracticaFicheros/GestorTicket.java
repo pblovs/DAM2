@@ -12,6 +12,22 @@ import java.time.format.DateTimeFormatter;
 public class GestorTicket {
 	private static final String TICKETS_DIR = "TICKETS";
     private static final String DEVOLUCIONES_DIR = "DEVOLUCIONES";
+    
+    public static void devolverTicketArchivo(int numTicket) {
+       
+
+        File ticket = new File(TICKETS_DIR, numTicket + ".txt");
+        if (!ticket.exists()) {
+            System.out.println("No se encontró el ticket " + numTicket);
+            return;
+        }
+
+        File destino = new File(DEVOLUCIONES_DIR, numTicket + ".txt");
+        
+        
+    }
+
+    
 
     public static int obtenerSiguienteNumeroTicket() {
         File dir = new File(TICKETS_DIR);
@@ -20,7 +36,6 @@ public class GestorTicket {
         File contadorFile = new File(dir, "contador.txt");
         int ultimoNumero = 0;
 
-        // Leer el último número guardado
         if (contadorFile.exists()) {
             try (BufferedReader br = new BufferedReader(new FileReader(contadorFile))) {
                 String linea = br.readLine();
@@ -32,7 +47,6 @@ public class GestorTicket {
             }
         }
 
-        // Incrementar y guardar el nuevo número
         int nuevoNumero = ultimoNumero + 1;
         try (PrintWriter pw = new PrintWriter(new FileWriter(contadorFile))) {
             pw.println(nuevoNumero);
@@ -74,17 +88,13 @@ public class GestorTicket {
     }
 
     public static void devolverTicket(Ticket ticket) {
-        // Marcar el ticket como devolución
         ticket.marcarComoDevolucion();
 
-        // Guardar el ticket en la carpeta DEVOLUCIONES
         guardarTicket(ticket);
 
-        // Borrar el original de TICKETS
         File original = new File(TICKETS_DIR + "/" + ticket.getNumeroTicket() + ".txt");
         if (original.exists()) original.delete();
 
-        // Actualizar el stock
         GestorPlantas.actualizarStockPorDevolucion(ticket);
 
         System.out.println("Ticket " + ticket.getNumeroTicket() + " devuelto y stock actualizado.");
