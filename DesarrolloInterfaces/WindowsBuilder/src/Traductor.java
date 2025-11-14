@@ -4,6 +4,11 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Scanner;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 public class Traductor {
 
 	public static void main(String[] args) throws IOException {
@@ -13,13 +18,20 @@ public class Traductor {
 		System.out.println("Introduce una palabra en inglés: ");
 		String palabraBuscar = sc.nextLine();
 		
-		URL dir = new URL("https://www.spanishdict.com/translate/"+palabraBuscar);
+		/*URL dir = new URL("https://www.spanishdict.com/translate/"+palabraBuscar);
 		
 		String html = obtenerHTML(dir);
 		String palabraTraducida = cortarHTML(html);
 		//System.out.println(html);
 		
-		System.out.println(palabraTraducida);
+		System.out.println(palabraTraducida);*/
+		String web = "https://www.spanishdict.com/translate/"+palabraBuscar;
+		Document doc = Jsoup.connect(web).get();
+		Element el = doc.select("div#quickdef1-en a.tCur1iYh").get(0);
+		String a = el.html();
+	
+		System.out.println(a);
+		
 		sc.close();
 	}
 
