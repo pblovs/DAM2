@@ -1,6 +1,7 @@
 package ExamenPracticaFicheros;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MenuGestores {
@@ -51,6 +52,7 @@ public class MenuGestores {
                 	recuperarEmpleado(sc);
                 	break;
                 case 7:
+                	mostrarEstadisticas();
                 	break;
                 default:
                     System.out.println(ROJO + "Saliendo..." + RESET);
@@ -209,5 +211,26 @@ public class MenuGestores {
         GestorEmpleados.guardar("EMPLEADOS/BAJA/empleadosBaja.dat", GestorEmpleados.getEmpleadosBaja());
         System.out.println(VERDE + "Empleado recuperado correctamente." + RESET);
     }
+	
+	public static void mostrarEstadisticas() {
+	    ArrayList<Ticket> tickets = GestorTicket.getTickets();
+	    
+	    if (tickets.isEmpty()) {
+	        System.out.println(AMARILLO + "\nNo hay tickets registrados para calcular estadísticas." + RESET);
+	        return;
+	    }
+	    
+	    double totalRecaudado = 0.0;
+	    
+	    for (Ticket t : tickets) {
+	        totalRecaudado += t.getTotal(); 
+	    }
+	    
+	    System.out.println(VERDE + "\n===== ESTADÍSTICAS =====" + RESET);
+	    
+	    System.out.printf(MAGENTA + "Total Recaudado: " + RESET + "%.2f €\n", totalRecaudado);
+	    
+	    System.out.println("=========================================\n");
+	}
 
 }

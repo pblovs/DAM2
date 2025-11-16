@@ -13,9 +13,7 @@ public class MenuVendedores {
     public static final String AZUL = "\u001B[34m";
     public static final String MAGENTA = "\u001B[35m";
     public static final String CYAN = "\u001B[36m";
-    
-    private static ArrayList<Ticket> tickets = new ArrayList<>();
-        
+            
 	public static void mostrar(Empleado vendedor) {
 		Scanner sc = new Scanner(System.in);
         int opcion;
@@ -43,7 +41,7 @@ public class MenuVendedores {
                 	    sc.nextLine();
 
                 	    Ticket ticketDevuelto = null;
-                	    for (Ticket t : tickets) {
+                	    for (Ticket t : GestorTicket.getTickets()) {
                 	        if (t.getNumeroTicket() == numTicket) {
                 	            ticketDevuelto = t;
                 	            break;
@@ -68,7 +66,7 @@ public class MenuVendedores {
         System.out.printf(" %-5s %-17s %-10s %-10s\n", "ID", "Nombre", "Precio", "Stock");
         System.out.println("-------------------------------------------");
         for (Planta p : GestorPlantas.getPlantas()) {
-            if (p.getCantidad() > 0) { // Solo plantas disponibles
+            if (p.getCantidad() > 0) { 
                 System.out.printf(" %-5d %-17s %-10.2f %-10d\n",
                         p.getCodigo(), p.getNombre(), p.getPrecio(), p.getCantidad());
             }
@@ -95,23 +93,28 @@ public class MenuVendedores {
     		
     		boolean idValido = false;
 
-		    while (!idValido) {
-		        System.out.print("Introduce el ID de la planta a comprar: ");
-		        String input = sc.nextLine();
+    		while (!idValido) {
+    		    System.out.print("Introduce el ID de la planta a comprar: ");
+    		    String input = sc.nextLine();
 
-		        if (input.matches("^(?:[1-9]|1[0-9]|20)$")) { 
-		            id = Integer.parseInt(input);
-
-		            if (GestorPlantas.buscarPlantaPorId(id).getCantidad() > 0) {
-			            idValido = true;
-		            }
-		            else {
-		            	System.out.println(AMARILLO+"No hay stock de esa planta"+RESET);
-		            }
-		        } else {
-		            System.out.println(AMARILLO+"ID inválido. Inténtalo de nuevo."+RESET);
-		        }
-		    }
+    		    if (input.matches("\\d+")) { 
+    		        id = Integer.parseInt(input);
+	        		        
+    		        Planta p = GestorPlantas.buscarPlantaPorId(id);
+    		        
+    		        if (p != null) { 
+    		             if (p.getCantidad() > 0) {
+    		                 idValido = true;
+    		             } else {
+    		                 System.out.println(AMARILLO + "No hay stock de esa planta." + RESET);
+    		             }
+    		        } else {
+    		             System.out.println(AMARILLO + "ID de planta no encontrado." + RESET);
+    		        }
+    		    } else {
+    		        System.out.println(AMARILLO + "Solo se permiten números. Inténtalo de nuevo." + RESET);
+    		    }
+    		}
     		
     		int cant = 0;
     		boolean cantValida = false;
@@ -156,7 +159,8 @@ public class MenuVendedores {
             }
         	GestorPlantas.guardar("plantas.dat", GestorPlantas.getPlantas());
         	GestorTicket.guardarTicket(ticket);
-        	tickets.add(ticket);
+        	GestorTicket.getTickets().add(ticket);
+        	GestorTicket.guardarListaCompleta();
         }
         
         
