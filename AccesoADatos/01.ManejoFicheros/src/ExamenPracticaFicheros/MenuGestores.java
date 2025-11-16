@@ -25,8 +25,9 @@ public class MenuGestores {
             System.out.println(CYAN + "4. Dar de alta empleado" + RESET);
             System.out.println(CYAN + "5. Dar de baja empleado" + RESET);
             System.out.println(CYAN + "6. Recuperar empleado" + RESET);
-            System.out.println(CYAN + "7. Estadísticas" + RESET);
-            System.out.println(CYAN + "8. Salir" + RESET);
+            System.out.println(CYAN + "7. Recuperar planta" + RESET);
+            System.out.println(CYAN + "8. Estadísticas" + RESET);
+            System.out.println(CYAN + "9. Salir" + RESET);
 
             System.out.print("Elige una opción: ");
 
@@ -52,8 +53,11 @@ public class MenuGestores {
                 	recuperarEmpleado(sc);
                 	break;
                 case 7:
-                	mostrarEstadisticas();
+                	recuperarPlanta(sc);
                 	break;
+                case 8:
+                	mostrarEstadisticas();
+                	break;	
                 default:
                     System.out.println(ROJO + "Saliendo..." + RESET);
             }
@@ -89,18 +93,28 @@ public class MenuGestores {
 	}
 	
 	public static void bajaPlanta(Scanner sc) {
-		System.out.println("Introduce el id de la planta: ");
-		int id = sc.nextInt();
-		Planta p = GestorPlantas.buscarPlantaPorId(id);
-		GestorPlantas.getPlantasBaja().add(p);
-		p.setPrecio(0);
-		p.setCantidad(0);
-		GestorPlantas.guardar("plantas.dat", GestorPlantas.getPlantas());              
-		GestorPlantas.guardarXML("plantas.xml", GestorPlantas.getPlantas());          
-		GestorPlantas.guardar("plantasBaja.dat", GestorPlantas.getPlantasBaja());  
-		GestorPlantas.guardarXML("plantasBaja.xml", GestorPlantas.getPlantasBaja());
+	    System.out.println("Introduce el id de la planta: ");
+	    int id = sc.nextInt();
 
+	    Planta p = GestorPlantas.buscarPlantaPorId(id);
+
+	    if (p == null) {
+	        System.out.println("No existe la planta.");
+	        return;
+	    }
+
+	    Planta copia = new Planta(p.getCodigo(), p.getNombre(), p.getFoto(), p.getDescripcion(), p.getPrecio(), p.getCantidad());
+	    GestorPlantas.getPlantasBaja().add(copia);
+	    p.setPrecio(0);
+	    p.setCantidad(0);
+	    GestorPlantas.guardar("plantas.dat", GestorPlantas.getPlantas());
+	    GestorPlantas.guardarXML("plantas.xml", GestorPlantas.getPlantas());
+	    GestorPlantas.guardar("plantasBaja.dat", GestorPlantas.getPlantasBaja());
+	    GestorPlantas.guardarXML("plantasBaja.xml", GestorPlantas.getPlantasBaja());
+
+	    System.out.println(VERDE + "Planta dada de baja correctamente." + RESET);
 	}
+
 	
 	public static void modificarPlanta(Scanner sc) {
         System.out.print("Introduce el ID de la planta a modificar: ");
@@ -212,6 +226,44 @@ public class MenuGestores {
         System.out.println(VERDE + "Empleado recuperado correctamente." + RESET);
     }
 	
+	public static void recuperarPlanta(Scanner sc) {
+	    System.out.print("Introduce el ID de la planta a recuperar: ");
+	    int id = sc.nextInt();
+	    sc.nextLine();
+
+	    Planta plantaBaja = null;
+	    	    
+	    for (Planta p : GestorPlantas.getPlantasBaja()) {
+	    	if (p.getCodigo() == id) {
+	    		plantaBaja = p;
+	    		break;
+	    	}
+	    }
+
+	    if (plantaBaja == null) {
+	        System.out.println(ROJO + "No se encontró esa planta en la lista de BAJA." + RESET);
+	        return;
+	    }
+
+	    Planta plantaPrincipal = GestorPlantas.buscarPlantaPorId(id);
+	    if (plantaPrincipal == null) {
+	        System.out.println(ROJO + "Error: La planta no existe en la lista principal." + RESET);
+	        return;
+	    }
+	    
+	    plantaPrincipal.setPrecio(plantaBaja.getPrecio());
+	    plantaPrincipal.setCantidad(plantaBaja.getCantidad());
+	    
+	    GestorPlantas.getPlantasBaja().remove(plantaBaja);
+
+	    GestorPlantas.guardar("plantas.dat", GestorPlantas.getPlantas());
+	    GestorPlantas.guardarXML("plantas.xml", GestorPlantas.getPlantas());
+	    GestorPlantas.guardar("plantasBaja.dat", GestorPlantas.getPlantasBaja());
+	    GestorPlantas.guardarXML("plantasBaja.xml", GestorPlantas.getPlantasBaja());
+
+	    System.out.println(VERDE + "Planta '" + plantaPrincipal.getNombre() + "' recuperada correctamente." + RESET);
+	}
+	
 	public static void mostrarEstadisticas() {
 	    ArrayList<Ticket> tickets = GestorTicket.getTickets();
 	    
@@ -230,7 +282,6 @@ public class MenuGestores {
 	    
 	    System.out.printf(MAGENTA + "Total Recaudado: " + RESET + "%.2f €\n", totalRecaudado);
 	    
-	    System.out.println("=========================================\n");
 	}
 
 }

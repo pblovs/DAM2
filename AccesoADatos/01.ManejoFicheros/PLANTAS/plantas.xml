@@ -6,7 +6,7 @@
         <foto>cactus.jpg</foto>
         <descripcion>Te pincha.</descripcion>
         <precio>340.95</precio>
-        <cantidad>130</cantidad>
+        <cantidad>129</cantidad>
     </planta>
     <planta>
         <codigo>2</codigo>
@@ -117,8 +117,8 @@
         <nombre>Begonia</nombre>
         <foto>begonia.jpg</foto>
         <descripcion>Planta ornamental con hojas decorativas.</descripcion>
-        <precio>454.43</precio>
-        <cantidad>1</cantidad>
+        <precio>234.0</precio>
+        <cantidad>300</cantidad>
     </planta>
     <planta>
         <codigo>16</codigo>
@@ -141,8 +141,8 @@
         <nombre>Romero</nombre>
         <foto>romero.jpg</foto>
         <descripcion>Planta aromática usada en la cocina mediterránea.</descripcion>
-        <precio>331.79</precio>
-        <cantidad>82</cantidad>
+        <precio>45.0</precio>
+        <cantidad>423</cantidad>
     </planta>
     <planta>
         <codigo>19</codigo>
@@ -165,8 +165,8 @@
         <nombre>Girasol</nombre>
         <foto>Girasol.jpg</foto>
         <descripcion>La planta que está cara al sol.</descripcion>
-        <precio>0.0</precio>
-        <cantidad>0</cantidad>
+        <precio>23.0</precio>
+        <cantidad>245</cantidad>
     </planta>
     <planta>
         <codigo>22</codigo>

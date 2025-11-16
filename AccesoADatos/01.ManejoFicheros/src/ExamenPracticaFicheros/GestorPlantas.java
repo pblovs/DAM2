@@ -25,8 +25,60 @@ public class GestorPlantas {
     private static ArrayList<Planta> plantas = new ArrayList<>();
     private static ArrayList<Planta> plantasBaja = new ArrayList<>();
 
-	
-	public static void cargarPlantas() {
+    public static void cargarPlantas(String nombreXML, String nombreDAT, ArrayList<Planta> lista) {
+        File carpeta = new File("PLANTAS");
+        if (!carpeta.exists()) carpeta.mkdir();
+        File archivoXML = new File(carpeta, nombreXML);
+        File archivoDAT = new File(carpeta, nombreDAT);
+
+        if (!archivoXML.exists()) {
+            return;
+        }
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document documento = builder.parse(new File(carpeta, nombreXML));
+            documento.getDocumentElement().normalize();
+            
+            NodeList listaPlantasXML = documento.getElementsByTagName("planta");
+            
+            for (int i = 0; i < listaPlantasXML.getLength(); i++) {
+                Node nodo = listaPlantasXML.item(i);
+                if (nodo.getNodeType() == Node.ELEMENT_NODE) {
+                    Element planta = (Element) nodo;
+                    int codigo = Integer.parseInt(planta.getElementsByTagName("codigo").item(0).getTextContent());
+                    String nombre = planta.getElementsByTagName("nombre").item(0).getTextContent();
+                    String foto = planta.getElementsByTagName("foto").item(0).getTextContent();
+                    String descripcion = planta.getElementsByTagName("descripcion").item(0).getTextContent();
+
+                    float precio = 0;
+                    int cantidad = 0;
+
+                    if (archivoDAT.exists()) {
+                        try (RandomAccessFile raf = new RandomAccessFile(archivoDAT, "r")) {
+                            long tamRegistro = 12;
+                            long posicion = (codigo - 1) * tamRegistro;
+                            if (posicion < raf.length()) {
+                                raf.seek(posicion);
+                                raf.readInt(); // código
+                                precio = raf.readFloat();
+                                cantidad = raf.readInt();
+                            }
+                        }
+                    }
+
+                    Planta plantita = new Planta(codigo, nombre, foto, descripcion, precio, cantidad);
+                    lista.add(plantita);
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error leyendo " + nombreXML + ": " + e.getMessage());
+        }
+    }
+
+    
+	/*public static void cargarPlantas() {
 		
 		File carpeta = new File("PLANTAS");
 	    if (!carpeta.exists()) {
@@ -86,7 +138,7 @@ public class GestorPlantas {
 		 {
 			 e.printStackTrace();
 		 }
-	}
+	}*/
 	
 	public static void guardar(String dat, ArrayList<Planta> lista) {
 	    try {

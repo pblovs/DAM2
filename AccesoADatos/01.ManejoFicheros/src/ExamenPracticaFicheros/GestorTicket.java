@@ -16,6 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GestorTicket {
+	
+	public static final String RESET = "\u001B[0m";
+    public static final String VERDE = "\u001B[32m";
+
 	private static final String TICKETS_DIR = "TICKETS";
     private static final String DEVOLUCIONES_DIR = "DEVOLUCIONES";
     private static final String FICHERO_LISTA_TICKETS = "DATOS/tickets_lista.dat"; 
@@ -123,7 +127,7 @@ public class GestorTicket {
 
         guardarListaCompleta(); 
 
-        System.out.println("Ticket " + ticket.getNumeroTicket() + " devuelto y stock actualizado.");
+        System.out.println(VERDE+"Ticket " + ticket.getNumeroTicket() + " devuelto y stock actualizado."+RESET);
     }
     
     public static ArrayList<Ticket> getTickets() {

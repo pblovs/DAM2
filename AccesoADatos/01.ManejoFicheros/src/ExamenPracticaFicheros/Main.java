@@ -19,8 +19,12 @@ public class Main {
 		System.out.printf(VERDE+"\n%70s","<<<<<<<< PLANTAS >>>>>>>>\n\n"+RESET);
 		System.out.printf(" %-4s %-15s %-20s %-55s %10s %15s \n", "ID","Nombre","Foto","Descripción","Precio","Cantidad");
 		System.out.println("------------------------------------------------------------------------------------------------------------------------------");
-		GestorPlantas.cargarPlantas();
-		
+		GestorPlantas.cargarPlantas("plantas.xml", "plantas.dat", GestorPlantas.getPlantas());
+		for (Planta p : GestorPlantas.getPlantas()) {
+	    	System.out.println(p.toString());
+	    }
+		GestorPlantas.cargarPlantas("plantasBaja.xml", "plantasBaja.dat", GestorPlantas.getPlantasBaja());
+
 		System.out.printf(CYAN+"\n%70s","<<<<<<<< EMPLEADOS >>>>>>>>\n\n"+RESET);
 		System.out.printf(" %-8s %-22s %-16s %-20s\n","ID","Nombre","Cargo","Password");
 		System.out.println("------------------------------------------------------------------------------------------------------------------------------");
