@@ -30,6 +30,7 @@ public class Main {
 		System.out.println("------------------------------------------------------------------------------------------------------------------------------");
 		GestorEmpleados.mostrarEmpleados();
 		
+		
 		System.out.println("\n\n| Iniciar sesión |\n");
 		int intentos = 3;
 		Boolean validacion = false;

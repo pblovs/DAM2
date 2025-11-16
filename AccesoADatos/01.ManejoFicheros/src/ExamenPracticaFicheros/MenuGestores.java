@@ -62,7 +62,7 @@ public class MenuGestores {
                     System.out.println(ROJO + "Saliendo..." + RESET);
             }
 
-        } while (opcion < 8);
+        } while (opcion < 9);
         
         sc.close();
 	}
@@ -278,10 +278,33 @@ public class MenuGestores {
 	        totalRecaudado += t.getTotal(); 
 	    }
 	    
+	    int maxCantidad = -1;
+	    Planta plantaMasVendida = null;
+
+	    for (Planta planta : GestorPlantas.getPlantas()) {
+
+	        int totalVendidas = 0;
+	        for (Ticket t : tickets) {
+	            for (LineaTicket linea : t.getLineas()) {
+	                if (linea.getCodigoPlanta() == planta.getCodigo()) {
+	                    totalVendidas += linea.getCantidad();
+	                }
+	            }
+	        }
+	        if (totalVendidas > maxCantidad) {
+	            maxCantidad = totalVendidas;
+	            plantaMasVendida = planta;
+	        }
+	    }
+
+	    
 	    System.out.println(VERDE + "\n===== ESTADÍSTICAS =====" + RESET);
 	    
 	    System.out.printf(MAGENTA + "Total Recaudado: " + RESET + "%.2f €\n", totalRecaudado);
+        System.out.printf(AMARILLO+"Planta más vendida: "+ RESET + "%s\n", plantaMasVendida.getNombre());
+
 	    
 	}
+	
 
 }
