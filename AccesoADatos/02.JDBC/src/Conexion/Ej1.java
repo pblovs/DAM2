@@ -56,12 +56,10 @@ public class Ej1 {
         try (Connection conexion = DriverManager.getConnection(url, usuario, password);
              Statement sentencia = conexion.createStatement()) {
 
-            // Mostrar equipos disponibles
             ResultSet equipos = sentencia.executeQuery("SELECT Nombre FROM equipos");
             System.out.println("Equipos disponibles:");
             while (equipos.next()) System.out.println("- " + equipos.getString("Nombre"));
 
-            // Pedir equipo
             System.out.print("Introduce el nombre del equipo: ");
             String nombreEquipo = sc.nextLine();
 
@@ -70,7 +68,6 @@ public class Ej1 {
             sentencia2.setString(1, nombreEquipo);
             ResultSet resultado2 = sentencia2.executeQuery();
 
-            // Mostrar jugadores
             while (resultado2.next()) {
                 System.out.println(
                         "Codigo: " + resultado2.getInt("codigo") +
@@ -89,11 +86,23 @@ public class Ej1 {
     }
 
     public static void insertarJugador(Scanner sc, String url, String usuario, String password) {
+    	String consulta = "SELECT max(codigo) as max_codigo FROM jugadores";
+    	int codigo = 0;
+
+        try (Connection conexion = DriverManager.getConnection(url, usuario, password);
+             Statement sentencia = conexion.createStatement();
+             ResultSet resultado = sentencia.executeQuery(consulta)) {
+
+            if (resultado.next()) {
+                codigo = resultado.getInt("max_codigo");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         System.out.println("Introduce los datos del jugador:");
-
-        System.out.print("Código: ");
-        int codigo = Integer.parseInt(sc.nextLine());
-
+        
+        codigo = codigo+1;
         System.out.print("Nombre: ");
         String nombre = sc.nextLine();
 
@@ -130,11 +139,11 @@ public class Ej1 {
             int filas = ps.executeUpdate();
 
             if (filas > 0) {
-                System.out.println("✅ Jugador insertado correctamente.");
+                System.out.println("Jugador insertado correctamente.");
             }
 
         } catch (Exception e) {
-            System.out.println("❌ Error al insertar jugador.");
+            System.out.println("Error al insertar jugador.");
             e.printStackTrace();
         }
     }
@@ -147,7 +156,7 @@ public class Ej1 {
         String password = "cfgs";
 
         while (true) {
-            System.out.println("\n📌 MENÚ NBA");
+            System.out.println("\nMENÚ NBA");
             System.out.println("1. Buscar jugadores por letra");
             System.out.println("2. Peso medio jugadores");
             System.out.println("3. Jugadores por equipo");
@@ -163,11 +172,11 @@ public class Ej1 {
                 case 3 -> jugadoresPorEquipo(sc, url, usuario, password);
                 case 4 -> insertarJugador(sc, url, usuario, password);
                 case 0 -> {
-                    System.out.println("👋 Saliendo...");
+                    System.out.println("Saliendo...");
                     sc.close();
                     return;
                 }
-                default -> System.out.println("❌ Opción no válida.");
+                default -> System.out.println("Opción no válida.");
             }
         }
     }
