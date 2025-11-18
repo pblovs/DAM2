@@ -34,7 +34,21 @@ public class MensajeroGriego implements Runnable{
 
 	protected synchronized void registraFinEjecucionHilo(int threadNumber) {
 		
-		boolean[] arrayHilosFinalizados = SincronizacionWaitNotify.getFlagsArrayHilosFinalizados();
+		boolean[] arrayHilosFinalizados = SincronizacionWaitNotify.getFlagsArrayhilosFinalizados();
+		
+		for (boolean b : arrayHilosFinalizados) {
+			if (b == false) {
+				return;
+			}
+		}
+        arrayHilosFinalizados.notify(); 
+
+		
+		
+		/*synchronized (arrayHilosFinalizados) {
+	        arrayHilosFinalizados[threadNumber] = true;
+	        arrayHilosFinalizados.notifyAll(); 
+	    }*/
 	}
 
 }

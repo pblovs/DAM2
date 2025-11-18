@@ -12,11 +12,26 @@ public class SincronizacionWaitNotify {
 		
 		for (int i = 0; i < NUM_HILOS; i++) {
 			Runnable hilo = new MensajeroGriego();
-			Thread hAux = new Thread(hilo);
-			hAux.setName(null);
-			
+			Thread t = new Thread(hilo);
+			t.setName(String.valueOf(i));
+			t.start();
 		}
+		
+			synchronized (flagsArrayHilosFinalizados) {
+				try {
+	                while (!todosAcabaron()) {
+	                    flagsArrayHilosFinalizados.wait();
+	                }
+	            } catch (InterruptedException e) {
+	                e.printStackTrace();
+	            }			
+						
+			}
+			
+			System.out.println("ANUNCIAMOS QUE TODOS LOS HILOS ACABARON LA CARRERA");
 	}
+		
+
 
 	private static void inicializarFlagsArrayHilosFinalizados() {
 		
@@ -24,5 +39,16 @@ public class SincronizacionWaitNotify {
 			flagsArrayHilosFinalizados[i] = false;
 		}
 	}
+	
+	public static boolean[] getFlagsArrayhilosFinalizados() {
+		return flagsArrayHilosFinalizados;
+	}
+	
+	private static boolean todosAcabaron() {
+        for (boolean fin : flagsArrayHilosFinalizados) {
+            if (!fin) return false;
+        }
+        return true;
+    }
 
 }
