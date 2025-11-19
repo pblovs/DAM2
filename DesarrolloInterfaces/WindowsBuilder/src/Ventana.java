@@ -1,5 +1,3 @@
-import java.awt.HeadlessException;
-
 import javax.swing.JFrame;
 
 public class Ventana extends JFrame{
@@ -12,7 +10,9 @@ public class Ventana extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
+		
 		Panel miPanel = new Panel();
+		
 		add(miPanel);
 	}
 	

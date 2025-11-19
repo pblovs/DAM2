@@ -9,9 +9,9 @@ public class Panel extends JPanel{
 	private JTextField textField;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
-	JLabel lblNewLabel_2;
-	JButton btnNewButton;
-	JButton btnNewButton_1;
+	private JLabel lblNewLabel_2;
+	private JButton btnNewButton;
+	private JButton btnNewButton_1;
 
 	public Panel() {
 		setLayout(null);
@@ -25,6 +25,12 @@ public class Panel extends JPanel{
 		lblNewLabel_1.setBounds(183, 53, 80, 14);
 		add(lblNewLabel_1);
 		
+		lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setBounds(161, 212, 131, 31);
+		add(lblNewLabel_2);
+		
 		textField = new JTextField();
 		textField.setBounds(141, 110, 169, 31);
 		add(textField);
@@ -32,16 +38,13 @@ public class Panel extends JPanel{
 		
 		btnNewButton = new JButton("Translate");
 		btnNewButton.setBounds(183, 152, 89, 23);
+		btnNewButton.addActionListener(new EventoTraducir(textField, lblNewLabel_2));
 		add(btnNewButton);
 		
 		btnNewButton_1 = new JButton("Exit");
 		btnNewButton_1.setBounds(372, 266, 68, 23);
 		add(btnNewButton_1);
 		
-		lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(161, 212, 131, 31);
-		add(lblNewLabel_2);
+		
 	}
 }

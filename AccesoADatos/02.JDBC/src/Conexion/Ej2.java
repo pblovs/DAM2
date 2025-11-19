@@ -4,13 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Ej2 {
 	
 	 
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Scanner sc = new Scanner(System.in);
 
         String url = "jdbc:mysql://localhost:3306/nba";
@@ -26,50 +27,53 @@ public class Ej2 {
             System.out.println("0. Salir");
             System.out.print("Elige opción: ");
 
-            int opcion = Integer.parseInt(sc.nextLine());
+            int opcion = sc.nextInt();
 
             switch (opcion) {
-                case 1 -> BorrarJugadores(sc, url, usuario, password);
-                case 2 -> FicharJugador(sc, url, usuario, password);
-                case 3 -> InsertarPartido(sc, url, usuario, password);
-                case 4 -> EstadisticasEquipo(sc, url, usuario, password);
+                case 1 -> BorrarJugadores(sc, getConnection(url, usuario, password));
+                case 2 -> FicharJugador(sc, getConnection(url, usuario, password));
+                case 3 -> InsertarPartido(sc, getConnection(url, usuario, password));
+                case 4 -> EstadisticasEquipo(sc, getConnection(url, usuario, password));
                 case 0 -> {
-                    System.out.println("Saliendo...");
+                    System.err.println("Saliendo...");
                     sc.close();
                     return;
                 }
-                default -> System.out.println("Opción no válida.");
+                default -> System.err.println("Opción no válida.");
             }
         }
     }
+	
+	public static Connection getConnection(String url, String usuario, String password) throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+		return DriverManager.getConnection(url, usuario, password);
+	}
 
-	private static void BorrarJugadores(Scanner sc, String url, String usuario, String password) {
+	private static void BorrarJugadores(Scanner sc, Connection conexion) {
 		System.out.print("Introduce un ID: ");
         int id = sc.nextInt();
 
         String consulta = "DELETE FROM jugadores WHERE codigo = ?";
 
-        try (Connection conexion = DriverManager.getConnection(url, usuario, password);
-             PreparedStatement sentencia = conexion.prepareStatement(consulta)) {
-
-            Class.forName("com.mysql.cj.jdbc.Driver");
+        try (PreparedStatement sentencia = conexion.prepareStatement(consulta);){
             sentencia.setInt(1, id);
-            int resultado = sentencia.executeUpdate();
+            sentencia.executeUpdate();
+            System.err.println("Jugador "+id+" borrado correctamente.");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 	}
 
-	private static void FicharJugador(Scanner sc, String url, String usuario, String password) {
-		// TODO Auto-generated method stub
+	private static void FicharJugador(Scanner sc, Connection conexion) {
+		
 	}
 
-	private static void InsertarPartido(Scanner sc, String url, String usuario, String password) {
-		// TODO Auto-generated method stub
+	private static void InsertarPartido(Scanner sc, Connection conexion) {
+		
 	}
 
-	private static void EstadisticasEquipo(Scanner sc, String url, String usuario, String password) {
-		// TODO Auto-generated method stub
+	private static void EstadisticasEquipo(Scanner sc, Connection conexion) {
+		
 	}
 }
