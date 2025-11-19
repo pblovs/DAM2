@@ -12,7 +12,7 @@ public class Ventana extends JFrame{
 		setLocationRelativeTo(null);
 		
 		Panel miPanel = new Panel();
-		
+		miPanel.setBounds(0, 0, 550, 350);
 		add(miPanel);
 	}
 	
