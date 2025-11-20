@@ -1,3 +1,4 @@
+package Traductor;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -23,7 +24,7 @@ public class Panel extends JPanel{
 		
 		lblNewLabel = new JLabel("TRANSLATOR");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Splash", Font.BOLD, 26));
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 26));
 		lblNewLabel.setBounds(151, 31, 243, 22);
 		add(lblNewLabel);
 		
