@@ -7,6 +7,8 @@ import java.awt.event.MouseMotionAdapter;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class Panel extends JPanel{
 	
@@ -14,7 +16,7 @@ public class Panel extends JPanel{
     private final int VELOCIDAD = 30;
     
 	public Panel() {
-		setBackground(new Color(119, 136, 153));
+		setBackground(Color.DARK_GRAY);
 		setLayout(null);
 		
 		ImageIcon icono = new ImageIcon("C:\\Users\\DAM.LAB35-PC\\Downloads\\mosca3.2.png");
@@ -22,6 +24,33 @@ public class Panel extends JPanel{
 		mosca.setBounds(203, 135, 100, 100);
 		
 		add(mosca);
+		
+		JLabel lblNewLabel = new JLabel("MATA LA PUTA MOSCA");
+		lblNewLabel.setForeground(Color.RED);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(141, 11, 277, 25);
+		add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("ASESINALA");
+		lblNewLabel_1.setForeground(Color.RED);
+		lblNewLabel_1.setBounds(66, 98, 81, 25);
+		add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("DESCUARTIZALA");
+		lblNewLabel_2.setForeground(Color.RED);
+		lblNewLabel_2.setBounds(67, 237, 100, 14);
+		add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("HAZ QUE SUFRA");
+		lblNewLabel_3.setForeground(Color.RED);
+		lblNewLabel_3.setBounds(346, 252, 100, 14);
+		add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("SIN PIEDAD");
+		lblNewLabel_4.setForeground(Color.RED);
+		lblNewLabel_4.setBounds(359, 103, 87, 14);
+		add(lblNewLabel_4);
 		
         addMouseMotionListener(new MouseMotionAdapter() {
         	@Override
@@ -51,5 +80,4 @@ public class Panel extends JPanel{
         });
 
 	}
-	
 }
