@@ -24,7 +24,7 @@ public class Panel extends JPanel{
 		
 		lblNewLabel = new JLabel("TRANSLATOR");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 26));
+		lblNewLabel.setFont(new Font("Freestyle Script", Font.BOLD, 26));
 		lblNewLabel.setBounds(151, 31, 243, 22);
 		add(lblNewLabel);
 		
@@ -47,6 +47,7 @@ public class Panel extends JPanel{
 		textField.setColumns(10);
 		
 		btnNewButton = new JButton("Translate");
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.setBounds(223, 165, 98, 23);

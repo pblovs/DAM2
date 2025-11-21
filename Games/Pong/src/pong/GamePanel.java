@@ -1,13 +1,21 @@
 package pong;
 
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class GamePanel extends JPanel implements Runnable{
 	
@@ -16,7 +24,7 @@ public class GamePanel extends JPanel implements Runnable{
 	static final Dimension SCREEN_SIZE = new Dimension(GAME_WIDTH, GAME_HEIGHT);
 	static final int BALL_DIAMETER = 20;
 	static final int PADDLE_WIDTH = 20;
-	static final int PADDLE_HEIGHT = 100;
+	static final int PADDLE_HEIGHT = 200;
 
 	Thread gameThread;
 	Image image;
@@ -26,6 +34,11 @@ public class GamePanel extends JPanel implements Runnable{
 	Paddle paddle2;
 	Ball ball;
 	Score score;
+	JButton rebootButton;
+	JLabel winner;
+	boolean gameStopped = false;
+	int winnerID;
+
 	
 	GamePanel(){
 		newPaddles();
@@ -34,8 +47,39 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setFocusable(true);
 		this.addKeyListener(new AL());
 		this.setPreferredSize(SCREEN_SIZE);
+		this.setLayout(null);
 		
 		gameThread = new Thread(this);
+		
+		winner = new JLabel("PLAYER "+winnerID+" WINS");
+		winner.setVisible(false);
+		winner.setHorizontalAlignment(SwingConstants.CENTER);
+		winner.setFont(new Font("Tahoma", Font.BOLD, 52));
+		winner.setBounds((GAME_WIDTH/2)-250, (GAME_HEIGHT/2)-150, 500, 100);
+		this.add(winner);
+		
+		rebootButton = new JButton("REBOOT");
+		rebootButton.setVisible(false);
+		rebootButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		rebootButton.setBackground(new Color(255, 255, 255));
+		rebootButton.setFont(new Font("Tahoma", Font.BOLD, 25));
+		rebootButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Score.player1 = 0;
+				Score.player2 = 0;
+
+				newPaddles();
+				newBall();
+				gameStopped = false;
+				rebootButton.setVisible(false);
+				winner.setVisible(false);
+				repaint();
+			}
+		});
+		rebootButton.setBounds((GAME_WIDTH/2)-100, (GAME_HEIGHT/2)-25, 200, 50);
+		this.add(rebootButton);
+
+		
 		gameThread.start();
 	}
 	
@@ -50,11 +94,14 @@ public class GamePanel extends JPanel implements Runnable{
 		paddle2 = new Paddle(GAME_WIDTH-PADDLE_WIDTH, (GAME_HEIGHT/2)-(PADDLE_HEIGHT/2), PADDLE_WIDTH, PADDLE_HEIGHT, 2);
 	}
 	
-	public void paint(Graphics g) {
-		image = createImage(getWidth(), getHeight());
-		graphics = image.getGraphics();
-		draw(graphics);
-		g.drawImage(image, 0, 0, this);
+	@Override
+	public void paintComponent(Graphics g) {
+	    super.paintComponent(g); 
+
+	    image = createImage(getWidth(), getHeight());
+	    graphics = image.getGraphics();
+	    draw(graphics);
+	    g.drawImage(image, 0, 0, this);
 	}
 	
 	public void draw(Graphics g) {
@@ -129,6 +176,22 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 	}
 	
+	public void checkWin() {
+	    if(Score.player1 == 10 || Score.player2 == 10) {
+	        gameStopped = true;
+	        rebootButton.setVisible(true);
+	        if (Score.player1 == 10) {
+	            winnerID = 1;
+	        } else if (Score.player2 == 10){
+	            winnerID = 2;
+	        }
+	        
+	        winner.setText("PLAYER " + winnerID + " WINS");
+	        winner.setVisible(true);
+	    }
+	}
+
+	
 	public void run() {
 		//game loop
 		long lastTime = System.nanoTime();
@@ -140,11 +203,13 @@ public class GamePanel extends JPanel implements Runnable{
 			delta += (now-lastTime)/ms;
 			lastTime = now;
 			if(delta >= 1) {
-				move();
-				checkCollision();
-				repaint();
-				delta--;
-				//System.out.println("Test");
+			    if(!gameStopped){  // solo mover si no está parado
+			        move();
+			        checkCollision();
+			    }
+			    checkWin();
+			    repaint();
+			    delta--;
 			}
 		}
 	}
