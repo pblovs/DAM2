@@ -1,0 +1,60 @@
+package ui;
+
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.Timer;
+import java.awt.SystemColor;
+
+public class PantallaCarga extends JPanel {
+	
+	JProgressBar progressBar;
+	JLabel cargando;
+	Timer tiempo;
+	int i = 0;
+
+	public PantallaCarga() {
+		setBackground(SystemColor.inactiveCaption);
+		setLayout(null);
+		
+		progressBar = new JProgressBar(0, 100);
+		progressBar.setBackground(new Color(255, 255, 255));
+		progressBar.setStringPainted(true);
+		progressBar.setToolTipText("");
+		progressBar.setVisible(true);
+		progressBar.setForeground(new Color(102, 204, 255));
+		progressBar.setBounds(-2, 530, 800, 35);
+		add(progressBar);
+		
+		cargando = new JLabel("Cargando...");
+        cargando.setForeground(Color.WHITE);
+        cargando.setBounds(370, 500, 200, 25);
+        add(cargando);
+		
+		tiempo = new Timer(100, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				i++;
+				progressBar.setValue(i);
+				progressBar.setString(i+"%");
+					
+				if (i >= 100) {
+					tiempo.stop();
+		                // Aquí puedes abrir la ventana principal
+		                // Ejemplo:
+		                // SwingUtilities.getWindowAncestor(PantallaCarga.this).dispose();
+		                // new app.Ventana().setVisible(true);
+				}
+			}
+		});
+		
+		tiempo.start();
+
+
+	}
+}
