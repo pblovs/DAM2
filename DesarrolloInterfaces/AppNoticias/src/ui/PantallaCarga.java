@@ -5,10 +5,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.Timer;
+
+import app.Ventana;
+
 import java.awt.SystemColor;
 
 public class PantallaCarga extends JPanel {
@@ -17,9 +21,13 @@ public class PantallaCarga extends JPanel {
 	JLabel cargando;
 	Timer tiempo;
 	int i = 0;
+	private Ventana ventanaPrincipal;
 
-	public PantallaCarga() {
-		setBackground(SystemColor.inactiveCaption);
+	public PantallaCarga(Ventana ventanaPrincipal) { 
+        this.ventanaPrincipal = ventanaPrincipal;
+        
+		setBackground(SystemColor.white);
+		setVisible(true);
 		setLayout(null);
 		
 		progressBar = new JProgressBar(0, 100);
@@ -27,12 +35,13 @@ public class PantallaCarga extends JPanel {
 		progressBar.setStringPainted(true);
 		progressBar.setToolTipText("");
 		progressBar.setVisible(true);
-		progressBar.setForeground(new Color(102, 204, 255));
+		progressBar.setForeground(new Color(30, 144, 255));
+
 		progressBar.setBounds(-2, 530, 800, 35);
 		add(progressBar);
 		
 		cargando = new JLabel("Cargando...");
-        cargando.setForeground(Color.WHITE);
+        cargando.setForeground(new Color(30, 144, 255));
         cargando.setBounds(370, 500, 200, 25);
         add(cargando);
 		
@@ -45,10 +54,8 @@ public class PantallaCarga extends JPanel {
 					
 				if (i >= 100) {
 					tiempo.stop();
-		                // Aquí puedes abrir la ventana principal
-		                // Ejemplo:
-		                // SwingUtilities.getWindowAncestor(PantallaCarga.this).dispose();
-		                // new app.Ventana().setVisible(true);
+					ventanaPrincipal.mostrarInicio();
+		                
 				}
 			}
 		});

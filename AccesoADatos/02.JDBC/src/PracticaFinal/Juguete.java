@@ -1,6 +1,6 @@
 package PracticaFinal;
 
-public class Juguetes {
+public class Juguete {
 	
 	
 }

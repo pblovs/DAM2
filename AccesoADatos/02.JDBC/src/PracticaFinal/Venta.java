@@ -1,5 +1,5 @@
 package PracticaFinal;
 
-public class Empleados {
+public class Venta {
 
 }
