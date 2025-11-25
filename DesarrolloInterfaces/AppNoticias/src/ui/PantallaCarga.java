@@ -45,7 +45,7 @@ public class PantallaCarga extends JPanel {
         cargando.setBounds(370, 500, 200, 25);
         add(cargando);
 		
-		tiempo = new Timer(100, new ActionListener() {
+		tiempo = new Timer(50, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				i++;
