@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
+import ui.Configuracion;
 import ui.InicioSesion;
 import ui.PantallaCarga;
 
@@ -14,6 +15,7 @@ public class Ventana extends JFrame {
 	private JLayeredPane layeredPane;
 	private JPanel panelCarga;
 	private JPanel inicio;
+	private JPanel config;
 
     public Ventana() {
         setTitle("App");
@@ -29,16 +31,23 @@ public class Ventana extends JFrame {
         getContentPane().add(layeredPane);
         
         panelCarga = new PantallaCarga(this); 
-        inicio = new InicioSesion();
+        inicio = new InicioSesion(this);
+        config = new Configuracion();
         
         panelCarga.setBounds(0, 0, 800, 600);
         inicio.setBounds(0, 0, 800, 600);
+        config.setBounds(0, 0, 800, 600);
+
         
         layeredPane.add(panelCarga);
         layeredPane.add(inicio);
+        layeredPane.add(config);
+
         
         panelCarga.setVisible(true);
         inicio.setVisible(false);
+        config.setVisible(false);
+
         
     }
 
@@ -46,5 +55,12 @@ public class Ventana extends JFrame {
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panelCarga.setVisible(false);
         inicio.setVisible(true);
+    }
+    
+    public void mostrarConfig() {
+    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        inicio.setVisible(false);
+        config.setVisible(true);
+
     }
 }

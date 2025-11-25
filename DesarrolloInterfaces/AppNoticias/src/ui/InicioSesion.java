@@ -1,12 +1,19 @@
 package ui;
 
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import app.Ventana;
+import logic.GestorUsuario;
+
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -18,8 +25,12 @@ public class InicioSesion extends JPanel{
 	JLabel inicio;
 	private JTextField txtNombre;
 	private JPasswordField passwordField;
+	private Ventana ventanaPrincipal;
 
-	public InicioSesion() {
+
+	public InicioSesion(Ventana ventanaPrincipal) {
+        this.ventanaPrincipal = ventanaPrincipal;
+		
 		setBackground(new Color(30, 144, 255));
 		setLayout(null);
 		
@@ -57,21 +68,45 @@ public class InicioSesion extends JPanel{
 		btnNewButton.setBounds(315, 463, 150, 37);
 		add(btnNewButton);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Ocultar");
+		
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("Mostrar");
+		rdbtnNewRadioButton.setForeground(Color.WHITE);
 		rdbtnNewRadioButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		rdbtnNewRadioButton.setBackground(new Color(30, 144, 255));
-		rdbtnNewRadioButton.setBounds(537, 386, 67, 29);
+		rdbtnNewRadioButton.setBounds(537, 386, 91, 29);
 		add(rdbtnNewRadioButton);
-		
-		if(passwordField.getEchoChar() == '*'){
-		       passwordField.setEchoChar((char)0);
-		    }else{
-		        passwordField.setEchoChar('*');
-		    }
 		
 		passwordField = new JPasswordField();
 		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		passwordField.setBounds(266, 386, 250, 30);
 		add(passwordField);
+		
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String name = txtNombre.getText();
+				String pass = passwordField.getText();
+				boolean validado = GestorUsuario.validar(name, pass);
+				if(validado) {
+					ventanaPrincipal.mostrarConfig();
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Nombre o contraseña incorrecto", "Error", 0);
+				}
+			}
+		});
+		
+		rdbtnNewRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(rdbtnNewRadioButton.isSelected()) {
+					passwordField.setEchoChar((char)0);
+					rdbtnNewRadioButton.setText("Ocultar");
+				}
+				else {
+					
+					passwordField.setEchoChar('●');
+					rdbtnNewRadioButton.setText("Mostrar");
+				}
+			}
+		});
 	}
 }
