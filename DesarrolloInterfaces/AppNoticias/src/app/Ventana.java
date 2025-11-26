@@ -18,6 +18,7 @@ public class Ventana extends JFrame {
 	private JPanel config;
 
     public Ventana() {
+    	//setUndecorated(true);
         setTitle("App");
         setResizable(false);
         setBounds(100, 100, 800, 600);

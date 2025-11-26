@@ -4,10 +4,16 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import read_write.GuardarPreferencias;
+
 import java.awt.Font;
 import javax.swing.JCheckBox;
 import java.awt.Cursor;
 import java.awt.Component;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Configuracion extends JPanel{
 	
@@ -73,6 +79,17 @@ public class Configuracion extends JPanel{
 		cultura.setBackground(new Color(30, 144, 255));
 		cultura.setBounds(343, 223, 97, 23);
 		add(cultura);
+		
+		JButton btnNewButton = new JButton("Aceptar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GuardarPreferencias.guardar(1, deportes.isSelected(), politica.isSelected(), cultura.isSelected(), nac.isSelected(), internac.isSelected());
+			}
+		});
+		btnNewButton.setBounds(343, 367, 89, 23);
+		add(btnNewButton);
+		
+		
 		
 	}
 }

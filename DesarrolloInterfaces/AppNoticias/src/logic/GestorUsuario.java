@@ -8,10 +8,10 @@ public class GestorUsuario {
 	public static ArrayList<Usuario> usuarios = new ArrayList<>();
 	
 	static {
-		usuarios.add(new Usuario("Eren", "ilovemikasa", "eren@gmail.com", false, null));
-		usuarios.add(new Usuario("Mikasa", "iloveeren", "mikasa@gmail.com", false, null));
-		usuarios.add(new Usuario("Levy", "titan", "levy@gmail.com", false, null));
-		usuarios.add(new Usuario("Erwin", "giveurhearts", "erwin@gmail.com", true, null));
+		usuarios.add(new Usuario(1, "Eren", "ilovemikasa", "eren@gmail.com", false, null));
+		usuarios.add(new Usuario(2, "Mikasa", "iloveeren", "mikasa@gmail.com", false, null));
+		usuarios.add(new Usuario(3, "Levy", "titan", "levy@gmail.com", false, null));
+		usuarios.add(new Usuario(4, "Erwin", "giveurhearts", "erwin@gmail.com", true, null));
 	}
 	
 	public static boolean validar(String name, String pass) {

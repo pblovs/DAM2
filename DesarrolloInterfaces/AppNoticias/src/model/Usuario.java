@@ -4,19 +4,28 @@ import java.util.ArrayList;
 
 public class Usuario {
 	
+	private int id;
 	private String name;
 	private String pass;
 	private String email;
 	private boolean isAdmin = false;
 	private ArrayList<Preferencia> prefs = new ArrayList<>();
 	
-	public Usuario(String name, String pass, String email, boolean isAdmin, ArrayList<Preferencia> prefs) {
+	public Usuario(int id, String name, String pass, String email, boolean isAdmin, ArrayList<Preferencia> prefs) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.pass = pass;
 		this.email = email;
 		this.isAdmin = isAdmin;
 		this.prefs = prefs;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
