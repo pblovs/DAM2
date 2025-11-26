@@ -63,8 +63,6 @@ public class Empleado {
 
 	    Scanner sc = new Scanner(System.in);
 	    
-	    int idEmpleado = 0;
-
 	    System.out.print("Introduce el nombre del empleado: ");
 	    String nombre = sc.nextLine();
 
@@ -74,33 +72,17 @@ public class Empleado {
 	    System.out.print("Introduce fecha de ingreso (YYYY-MM-DD): ");
 	    String fechaIngreso = sc.nextLine();
 
-	    String sqlMax = "SELECT COALESCE(MAX(idEMPLEADO), 0) FROM empleado";
-
-	    try (Connection con = Conexion.getConexion();
-	         Statement stmt = con.createStatement();
-	         ResultSet rs = stmt.executeQuery(sqlMax)) {
-
-	        if (rs.next()) {
-	            idEmpleado = rs.getInt(1) + 1;
-	        }
-
-	    } catch (SQLException e) {
-	        System.out.println("Error obteniendo MAX ID: " + e.getMessage());
-	        return false;
-	    }
-
-	    String sqlInsert = "INSERT INTO empleado (idEMPLEADO, Nombre, Cargo, Fecha_ingreso) VALUES (?, ?, ?, ?)";
+	    String sqlInsert = "INSERT INTO empleado (Nombre, Cargo, Fecha_ingreso) VALUES (?, ?, ?)";
 
 	    try (Connection con = Conexion.getConexion();
 	         PreparedStatement stmt = con.prepareStatement(sqlInsert)) {
 
-	        stmt.setInt(1, idEmpleado);
-	        stmt.setString(2, nombre);
-	        stmt.setString(3, cargo);
-	        stmt.setString(4, fechaIngreso);
+	        stmt.setString(1, nombre);
+	        stmt.setString(2, cargo);
+	        stmt.setString(3, fechaIngreso);
 
 	        stmt.executeUpdate();
-	        System.out.println("Empleado insertado correctamente con ID = " + idEmpleado);
+	        System.out.println("Empleado insertado correctamente");
 	        return true;
 
 	    } catch (SQLException e) {
@@ -119,12 +101,18 @@ public class Empleado {
 
             while (rs.next()) {
                 Empleado e = new Empleado(
-                        rs.getInt("idEMPLEADO"),
+                        rs.getInt("ID_Empleado"),
                         rs.getString("Nombre"),
                         rs.getString("Cargo"),
                         rs.getString("Fecha_ingreso")
                 );
                 empleados.add(e);
+                System.out.println(
+                        "ID: " + e.getIdEmpleado() +
+                        " | Nombre: " + e.getNombre() +
+                        " | Cargo: " + e.getCargo() +
+                        " | Fecha ingreso: " + e.getFechaIngreso()
+                    );
             }
 
         } catch (SQLException e) {
@@ -134,19 +122,40 @@ public class Empleado {
         return empleados;
     }
 
-    public boolean actualizar() {
-        String sql = "UPDATE empleado SET Nombre=?, Cargo=?, Fecha_ingreso=? WHERE idEMPLEADO=?";
+    public static boolean actualizar() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Introduce el ID del empleado que quieres actualizar: ");
+        int id = Integer.parseInt(sc.nextLine());
+
+        System.out.print("Introduce el nuevo nombre: ");
+        String nuevoNombre = sc.nextLine();
+
+        System.out.print("Introduce el nuevo cargo: ");
+        String nuevoCargo = sc.nextLine();
+
+        System.out.print("Introduce la nueva fecha de ingreso (YYYY-MM-DD): ");
+        String nuevaFecha = sc.nextLine();
+
+        String sql = "UPDATE empleado SET Nombre=?, Cargo=?, Fecha_ingreso=? WHERE ID_Empleado=?";
 
         try (Connection con = Conexion.getConexion();
              PreparedStatement stmt = con.prepareStatement(sql)) {
 
-            stmt.setString(1, nombre);
-            stmt.setString(2, cargo);
-            stmt.setString(3, fechaIngreso);
-            stmt.setInt(4, idEmpleado);
+            stmt.setString(1, nuevoNombre);
+            stmt.setString(2, nuevoCargo);
+            stmt.setString(3, nuevaFecha);
+            stmt.setInt(4, id);
 
-            stmt.executeUpdate();
-            return true;
+            int filas = stmt.executeUpdate();
+
+            if (filas > 0) {
+                System.out.println("Empleado actualizado correctamente.");
+                return true;
+            } else {
+                System.out.println("No existe un empleado con ese ID.");
+                return false;
+            }
 
         } catch (SQLException e) {
             System.out.println("Error actualizando empleado: " + e.getMessage());
@@ -154,8 +163,9 @@ public class Empleado {
         }
     }
 
+
     public static boolean eliminar(int idEmpleado) {
-        String sql = "DELETE FROM empleado WHERE idEMPLEADO=?";
+        String sql = "DELETE FROM empleado WHERE ID_Empleado=?";
 
         try (Connection con = Conexion.getConexion();
              PreparedStatement stmt = con.prepareStatement(sql)) {

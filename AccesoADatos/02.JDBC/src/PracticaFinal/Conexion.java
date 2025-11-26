@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class Conexion {
 	
-	private static final String URL = "jdbc:mysql://localhost:3306/jugueteria";
-    private static final String USER = "jugueteria_user";
+	private static final String URL = "jdbc:mysql://localhost:3306/juguetería";
+    private static final String USER = "root"; //jugueteria_user
     private static final String PASSWORD = "cfgs";
 
     public static Connection getConexion() {

@@ -47,10 +47,10 @@ public class PantallaCarga extends JPanel {
         cargando.setBounds(370, 500, 200, 25);
         add(cargando);
         
-        JLabel lblNewLabel = new JLabel("New label");
+        JLabel lblNewLabel = new JLabel("");
         lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel.setBounds(208, 171, 384, 237);
-		ImageIcon gif = new ImageIcon(getClass().getResource("/ImagenesGifs/cargando.gif"));
+        lblNewLabel.setBounds(-2, 158, 800, 442);
+		ImageIcon gif = new ImageIcon(getClass().getResource("/ImagenesGifs/gif1.gif"));
 		lblNewLabel.setIcon(gif);
         add(lblNewLabel);
 		

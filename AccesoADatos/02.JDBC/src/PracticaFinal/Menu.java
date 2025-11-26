@@ -24,12 +24,14 @@ public class Menu {
                     break;
 
                 case 2:
-                    // modificar datos
+                    Empleado.actualizar();
                     System.out.println("Modificar empleado...");
                     break;
 
                 case 3:
-                    // eliminar
+                	System.out.println("Introduce el id del empleado a borrar: ");
+                	int id = sc.nextInt();
+                    Empleado.eliminar(id);
                     System.out.println("Eliminar empleado...");
                     break;
 
