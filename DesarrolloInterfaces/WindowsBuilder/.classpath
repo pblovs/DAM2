@@ -11,5 +11,8 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/WindowsBuilder/jsoup-1.21.2-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/DAM.LAB35-PC/Downloads/javax.mail-api-1.6.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DAM.LAB35-PC/Downloads/javax.mail.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DAM.LAB35-PC/Downloads/activation-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

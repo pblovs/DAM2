@@ -3,8 +3,10 @@ package ui;
 import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
+import app.Ventana;
 import read_write.GuardarPreferencias;
 
 import java.awt.Font;
@@ -17,7 +19,12 @@ import java.awt.event.ActionEvent;
 
 public class Configuracion extends JPanel{
 	
-	public Configuracion(){
+	private Ventana ventanaPrincipal;
+
+	
+	public Configuracion(Ventana ventanaPrincipal){
+        this.ventanaPrincipal = ventanaPrincipal;
+
 		setBackground(new Color(30, 144, 255));
 		setLayout(null);
 		
@@ -81,9 +88,18 @@ public class Configuracion extends JPanel{
 		add(cultura);
 		
 		JButton btnNewButton = new JButton("Aceptar");
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setBackground(new Color(0, 191, 255));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GuardarPreferencias.guardar(1, deportes.isSelected(), politica.isSelected(), cultura.isSelected(), nac.isSelected(), internac.isSelected());
+				if (!deportes.isSelected() && !politica.isSelected() && !cultura.isSelected() && !nac.isSelected() && !internac.isSelected()) {
+					JOptionPane.showMessageDialog(null, "Marca alguna opción", "Error", 0);
+				}
+				else {
+					GuardarPreferencias.guardar(1, deportes.isSelected(), politica.isSelected(), cultura.isSelected(), nac.isSelected(), internac.isSelected());
+					ventanaPrincipal.mostrarNoticias();
+				}
+		
 			}
 		});
 		btnNewButton.setBounds(343, 367, 89, 23);

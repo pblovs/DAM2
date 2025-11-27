@@ -89,7 +89,7 @@ public class PantallaCarga extends JPanel {
 	private Component buscarImagen() {
 		BufferedImage fondo = null;
 		try {
-			fondo = ImageIO.read(getClass().getResource("/ImagenesGifs/fondo8.jpg"));
+			fondo = ImageIO.read(getClass().getResource("/ImagenesGifs/fondo12.jpg"));
 		}
 		catch(IOException e) {
 			e.printStackTrace();
