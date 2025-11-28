@@ -96,7 +96,8 @@ public class Configuracion extends JPanel{
 					JOptionPane.showMessageDialog(null, "Marca alguna opción", "Error", 0);
 				}
 				else {
-					GuardarPreferencias.guardar(1, deportes.isSelected(), politica.isSelected(), cultura.isSelected(), nac.isSelected(), internac.isSelected());
+					GuardarPreferencias.guardar(InicioSesion.user.getId(), deportes.isSelected(), politica.isSelected(), cultura.isSelected(), nac.isSelected(), internac.isSelected());
+					GuardarPreferencias.cargar();
 					ventanaPrincipal.mostrarNoticias();
 				}
 		

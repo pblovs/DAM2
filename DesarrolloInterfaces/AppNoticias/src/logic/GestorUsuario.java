@@ -25,5 +25,27 @@ public class GestorUsuario {
 		return false;
 		
 	}
+	
+	public static Usuario user(String name, String pass) {
+		for (Usuario u :usuarios) {
+			if (u.getName().equals(name)&& u.getPass().equals(pass)) {
+				return u;
+			}
+		}
+		
+		return null;
+	}
+	
+	public static Usuario buscarPorId(int id) {
+		
+		for (Usuario u :usuarios) {
+			if (u.getId() == id) {
+				return u;
+			}
+		}
+		
+		return null;
+
+	}
 
 }

@@ -13,6 +13,7 @@ import javax.swing.SwingConstants;
 
 import app.Ventana;
 import logic.GestorUsuario;
+import model.Usuario;
 
 import javax.swing.JButton;
 import java.awt.Color;
@@ -26,11 +27,12 @@ public class InicioSesion extends JPanel{
 	private JTextField txtNombre;
 	private JPasswordField passwordField;
 	private Ventana ventanaPrincipal;
+	public static Usuario user;
 
 
 	public InicioSesion(Ventana ventanaPrincipal) {
         this.ventanaPrincipal = ventanaPrincipal;
-		
+        
 		setBackground(new Color(30, 144, 255));
 		setLayout(null);
 		
@@ -80,14 +82,20 @@ public class InicioSesion extends JPanel{
 		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		passwordField.setBounds(266, 386, 250, 30);
 		add(passwordField);
-		
+
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String name = txtNombre.getText();
 				String pass = passwordField.getText();
 				boolean validado = GestorUsuario.validar(name, pass);
+				InicioSesion.user = GestorUsuario.user(name, pass);
 				if(validado) {
-					ventanaPrincipal.mostrarConfig();
+					if(user.getPrefs() == null) {
+						ventanaPrincipal.mostrarConfig();
+					}
+					else {
+						ventanaPrincipal.mostrarNoticias();
+					}
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "Nombre o contraseña incorrecto", "Error", 0);
