@@ -75,18 +75,24 @@ public class Menu {
             switch (op) {
                 case 1:
                     System.out.println("Registrar juguete...");
+                    Juguete.insertar();
                     break;
 
                 case 2:
                     System.out.println("Modificar juguete...");
+                    Juguete.modificar();
                     break;
 
                 case 3:
                     System.out.println("Eliminar juguete...");
+                    System.out.println("Introduce el id del juguete: ");
+                    int id= sc.nextInt();
+                    Juguete.eliminar(id);
                     break;
 
                 case 4:
                     System.out.println("Listado de juguetes...");
+                    Juguete.obtenerTodos();
                     break;
 
                 case 5:

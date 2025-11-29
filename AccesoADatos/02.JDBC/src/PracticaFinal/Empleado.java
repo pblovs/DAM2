@@ -109,9 +109,9 @@ public class Empleado {
                 empleados.add(e);
                 System.out.println(
                         "ID: " + e.getIdEmpleado() +
-                        " | Nombre: " + e.getNombre() +
-                        " | Cargo: " + e.getCargo() +
-                        " | Fecha ingreso: " + e.getFechaIngreso()
+                        "  Nombre: " + e.getNombre() +
+                        "  Cargo: " + e.getCargo() +
+                        "  Fecha ingreso: " + e.getFechaIngreso()
                     );
             }
 
