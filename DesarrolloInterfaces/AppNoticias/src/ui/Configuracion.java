@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 import app.Ventana;
+import model.Usuario;
 import read_write.GuardarPreferencias;
 
 import java.awt.Font;
@@ -20,10 +21,12 @@ import java.awt.event.ActionEvent;
 public class Configuracion extends JPanel{
 	
 	private Ventana ventanaPrincipal;
+	private Usuario user;
 
 	
-	public Configuracion(Ventana ventanaPrincipal){
+	public Configuracion(Ventana ventanaPrincipal, Usuario user){
         this.ventanaPrincipal = ventanaPrincipal;
+        this.user = user;
 
 		setBackground(new Color(30, 144, 255));
 		setLayout(null);
@@ -96,9 +99,9 @@ public class Configuracion extends JPanel{
 					JOptionPane.showMessageDialog(null, "Marca alguna opción", "Error", 0);
 				}
 				else {
-					GuardarPreferencias.guardar(InicioSesion.user.getId(), deportes.isSelected(), politica.isSelected(), cultura.isSelected(), nac.isSelected(), internac.isSelected());
+					GuardarPreferencias.guardar(user.getId(), deportes.isSelected(), politica.isSelected(), cultura.isSelected(), nac.isSelected(), internac.isSelected());
 					GuardarPreferencias.cargar();
-					ventanaPrincipal.mostrarNoticias();
+					ventanaPrincipal.mostrarNoticias(user);
 				}
 		
 			}

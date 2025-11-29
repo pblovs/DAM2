@@ -19,6 +19,7 @@ import javax.swing.JProgressBar;
 import javax.swing.Timer;
 
 import app.Ventana;
+import read_write.ComprobarArchivos;
 
 import java.awt.SystemColor;
 import javax.swing.SwingConstants;
@@ -33,6 +34,8 @@ public class PantallaCarga extends JPanel {
 
 	public PantallaCarga(Ventana ventanaPrincipal) { 
         this.ventanaPrincipal = ventanaPrincipal;
+        
+        ComprobarArchivos.comprobar("preferencias.txt");
         
 		//setBackground(SystemColor.white);
 		setLayout(null);

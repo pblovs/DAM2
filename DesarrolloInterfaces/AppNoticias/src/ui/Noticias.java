@@ -7,13 +7,22 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import app.Ventana;
 import model.Preferencia;
 import model.Usuario;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Noticias extends JPanel{
 	
-	Usuario user = InicioSesion.user;
-	public Noticias() {
+	private Usuario user;
+	private Ventana ventanaPrincipal;
+
+	public Noticias(Ventana ventanaPrincipal, Usuario user) {
+		this.ventanaPrincipal = ventanaPrincipal;
+		this.user = user;
+		
 		setBackground(new Color(30, 144, 255));
 		setLayout(null);
 		
@@ -48,6 +57,16 @@ public class Noticias extends JPanel{
 		inter.setVisible(false);
 		inter.setBounds(564, 148, 85, 14);
 		add(inter);
+		
+		JButton cerrar = new JButton("X");
+		cerrar.setForeground(new Color(255, 255, 255));
+		cerrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventanaPrincipal.mostrarInicio();
+			}
+		});
+		cerrar.setBounds(45, 46, 39, 23);
+		add(cerrar);
 		
 		for (Preferencia p : user.getPrefs()) {
 			if(p.getTipo().equals("D")) {

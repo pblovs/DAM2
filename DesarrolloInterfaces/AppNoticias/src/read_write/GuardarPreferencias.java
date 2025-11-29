@@ -18,7 +18,7 @@ public class GuardarPreferencias {
 	public static void guardar(int id, boolean d, boolean p, boolean c, boolean n, boolean i) {
 				
 		StringBuilder sb = new StringBuilder();
-		sb.append("##").append(id).append("-");
+		sb.append("<#").append(id).append("-");
 		if(d) {
 			sb.append("D");
 		}
@@ -36,8 +36,9 @@ public class GuardarPreferencias {
 		}
 		sb.append("/#");
 		
-		try(FileWriter fw = new FileWriter(archivo)){
+		try(FileWriter fw = new FileWriter(archivo, true)){ // el true es para que no sobreescriba
 			fw.write(sb.toString());
+			fw.write(System.lineSeparator());
 		}
 		catch(IOException e) {
 			e.printStackTrace();
@@ -52,7 +53,7 @@ public class GuardarPreferencias {
 		    String linea;
 		    int inicio, fin, finId;
 		    while ((linea = br.readLine()) != null) {
-		    	inicio = linea.indexOf("##"); 
+		    	inicio = linea.indexOf("<#"); 
 		    	String trozo = linea.substring(inicio);
 		    	fin = trozo.indexOf("/#");
 		    	String idYprefs = linea.substring(inicio+2, fin);
@@ -67,7 +68,7 @@ public class GuardarPreferencias {
 		    	
 		    	ArrayList<Preferencia> preferencias = new ArrayList<>();
 		    	for (int i = 0; i < prefs.length(); i++) {
-		    		Preferencia p = null;
+		    		Preferencia p = new Preferencia("");
 		    		String pref = prefs.substring(i, i+1);
 		    		p.setTipo(pref);
 		    		//System.out.println(pref);

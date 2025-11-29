@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 import app.Ventana;
 import logic.GestorUsuario;
 import model.Usuario;
+import read_write.GuardarPreferencias;
 
 import javax.swing.JButton;
 import java.awt.Color;
@@ -27,7 +28,7 @@ public class InicioSesion extends JPanel{
 	private JTextField txtNombre;
 	private JPasswordField passwordField;
 	private Ventana ventanaPrincipal;
-	public static Usuario user;
+	public Usuario user;
 
 
 	public InicioSesion(Ventana ventanaPrincipal) {
@@ -88,13 +89,14 @@ public class InicioSesion extends JPanel{
 				String name = txtNombre.getText();
 				String pass = passwordField.getText();
 				boolean validado = GestorUsuario.validar(name, pass);
-				InicioSesion.user = GestorUsuario.user(name, pass);
+				user = GestorUsuario.user(name, pass);
+				GuardarPreferencias.cargar();
 				if(validado) {
 					if(user.getPrefs() == null) {
-						ventanaPrincipal.mostrarConfig();
+						ventanaPrincipal.mostrarConfig(user);
 					}
 					else {
-						ventanaPrincipal.mostrarNoticias();
+						ventanaPrincipal.mostrarNoticias(user);
 					}
 				}
 				else {
